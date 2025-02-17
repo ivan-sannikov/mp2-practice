@@ -10,34 +10,36 @@ struct TNode {
 
 template <typename T>
 class TList {
-private:
+protected:
 	TNode<T>* pFirst;
+	TNode<T>* pStop = nullptr;
 public:
+	
 	TList() :pFirst(nullptr) {}
-	TList(const TList& other) : pFirst(nullptr) {
-		if (other.pFirst == nullptr) {
+	TList(const TList& other) : pFirst(pStop) {
+		if (other.pFirst == pStop) {
 			return;
 		}
 		pFirst = new TNode<T>(other.pFirst->key);
 		TNode<T>* tmp = pFirst;
 		TNode<T>* curr = other.pFirst->pNext;
-		while (curr != nullptr) {
+		while (curr != pStop) {
 			tmp->pNext = new TNode<T>(curr->key);
 			tmp = tmp->pNext;
 			curr = curr->pNext;
 		}
 	}
 	~TList() {
-		while (pFirst != nullptr) {
+		while (pFirst != pStop) {
 			TNode<T>* tmp = pFirst;
 			pFirst = pFirst->pNext;
 			delete tmp;
 		}
 	}
 	TNode<T>* Search(T key) {
-		if (this->pFirst == nullptr) throw "First element is null";
+		if (this->pFirst == pStop) throw "First element is null";
 		TNode<T>* tmp = pFirst;
-		while (tmp != nullptr && tmp->key != key) { 
+		while (tmp != pStop && tmp->key != key) { 
 			tmp = tmp->pNext;
 		}
 		return tmp;
@@ -45,12 +47,12 @@ public:
 	}
 	void InsertEnd(T key) { 
 		TNode<T>* tmp1 = new TNode<T>(key);
-		if (pFirst == nullptr) {
+		if (pFirst == pStop) {
 			pFirst = tmp1;
 			return;
 		}
 		TNode<T>* tmp = this->pFirst;
-		while (tmp->pNext != nullptr) {
+		while (tmp->pNext != pStop) {
 			tmp = tmp->pNext;
 		}
 		tmp->pNext = tmp1;
@@ -58,12 +60,12 @@ public:
 	}
 	void InsertBefore(T searchKey, T key) {
 		TNode<T>* tmp1 = new TNode<T>(key);
-		if (pFirst == nullptr) {
+		if (pFirst == pStop) {
 			pFirst = tmp1;
 			return;
 		}
 		TNode<T>* tmp = this->pFirst;
-		while (tmp->pNext != nullptr && tmp->pNext->key != searchKey) { 
+		while (tmp->pNext != pStop && tmp->pNext->key != searchKey) { 
 			tmp = tmp->pNext;
 		}
 		TNode<T>* findElem = tmp->pNext;
@@ -73,12 +75,12 @@ public:
 	}
 	void InsertAfter(T searchKey, T key) { 
 		TNode<T>* tmp1 = new TNode<T>(key);
-		if (pFirst == nullptr) {
+		if (pFirst == pStop) {
 			pFirst = tmp1;
 			return;
 		}
 		TNode<T>* tmp = this->pFirst;
-		while (tmp != nullptr && tmp->key != searchKey) { 
+		while (tmp != pStop && tmp->key != searchKey) { 
 			tmp = tmp->pNext;
 		}
 		TNode<T>* findElem = tmp->pNext;
@@ -88,7 +90,7 @@ public:
 	}
 	void InsertFirst(T key) {
 		TNode<T>* tmp1 = new TNode<T>(key);
-		if (pFirst == nullptr) {
+		if (pFirst == pStop) {
 			pFirst = tmp1;
 			return;
 		}
@@ -98,10 +100,10 @@ public:
 
 	}
 	TNode<T>* GetLast() const {
-		if (pFirst == nullptr) return nullptr;
+		if (pFirst == pStop) return pStop;
 		TNode<T>* tmp = pFirst;
 
-		while (tmp->pNext != nullptr) {
+		while (tmp->pNext != pStop) {
 			tmp = tmp->pNext;
 		}
 		return tmp;
@@ -110,30 +112,30 @@ public:
 	TNode<T>* GetFirst() const { return this->pFirst;}
 
 	void DeleteLast() {
-		if (pFirst == nullptr)
+		if (pFirst == pStop)
 			throw "List is empty";
 
-		if (pFirst->pNext == nullptr) {
+		if (pFirst->pNext == pStop) {
 			delete pFirst;
-			pFirst = nullptr;
+			pFirst = pStop;
 			return;
 		}
 
 		TNode<T>* tmp = pFirst;
-		while (tmp->pNext->pNext != nullptr) {
+		while (tmp->pNext->pNext != pStop) {
 			tmp = tmp->pNext;
 		}
 
 		delete tmp->pNext;
-		tmp->pNext = nullptr;
+		tmp->pNext = pStop;
 	}
 	void DeleteFirst() {
-		if (pFirst == nullptr)
+		if (pFirst == pStop)
 			return ;
 
-		if (pFirst->pNext == nullptr) {
+		if (pFirst->pNext == pStop) {
 			delete pFirst;
-			pFirst = nullptr;
+			pFirst = pStop;
 			return;
 		}
 
