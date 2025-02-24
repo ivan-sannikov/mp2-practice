@@ -4,6 +4,7 @@ template <typename T>
 struct TNode {
 	T key;
 	TNode* pNext;
+	TNode(): key(new T()), pNext(nullptr){}
 	TNode(T k) : key(k), pNext(nullptr) {}
 
 };

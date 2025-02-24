@@ -1,9 +1,11 @@
 #pragma once
 #include "headlist.h"
 template <typename T>
-class TRingHeadList : public THeadList<T>() {
+class TRingHeadList : public THeadList<T> {
 public:
-	THeadList() : this->pFirst(nullptr) {
-		pStop.pNext = this->pHead;
+	TRingHeadList() {
+		this->pFirst = nullptr;
+		//this->pStop = new TNode<T>(T());
+		//this->pStop->pNext = nullt
 	}
 };

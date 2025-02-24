@@ -1,33 +1,17 @@
-﻿// ННГУ, ИИТММ, Курс "Алгоритмы и структуры данных"
+// ННГУ, ИИТММ, Курс "Алгоритмы и структуры данных"
 //
 // Copyright (c) Сысоев А.В.
 //
 // Тестирование матриц
 
 #include <iostream>
-#include "postform.h"
-//---------------------------------------------------------------------------
+#include "TMonom.h"
+#include "TPolinom.h"
+using namespace std;
 
 int main() {
 	setlocale(LC_ALL, "Russian");
-	char* st = "(A-C)*T"; 
-	cout << "Обычная форма: " << st << endl;
-	int n = strlen(st);
-	string a;
-	//char* a = new char[n];
-	a = getPostform(st);
-	cout << "Постфиксная форма: " << a << endl;;
-	cout <<"\n" << endl;
-	map<char, int> s;
-	vector<char> v = getOperand(a);
-	for (int i = 0; i < v.size(); i++) {
-		int d;
-		cout << "Введите значение для элемента " << v[i] << ":" << endl;
-		cin >> d;
-		s[v[i]]= d;
-	}
-	cout <<"Ответ: "<< Calculate(a,s) << endl;
-	
-
-	
+	//TMonom<int> s("-3x");
+	//cout<<s.GetValue()<< "  "<<s.GetConvolution()<<endl;
+	TPolinom<int> s("3x^2y^3z^2-2x^3y^2z^3");
 }
