@@ -1,5 +1,6 @@
 #include <gtest.h>
 #include "TMonom.h"
+#include <gtest/gtest.h>
 
 TEST(TMonom, can_create_monom) {
 	ASSERT_NO_THROW(TMonom("-3xyz"));
@@ -34,3 +35,37 @@ TEST(TMonom, getconvolution_without_degree) {
 	double h = p.GetConvolution();
 	EXPECT_EQ(111, h);
 }
+TEST(TMonom, get_monom_simple) {
+	TMonom p("-3.5xyz");
+	string s = p.GetMonom();
+	EXPECT_EQ("-3.5xyz", s);
+}
+TEST(TMonom, get_monom_with_one_parametr) {
+	TMonom p("-3.5x");
+	string s = p.GetMonom();
+	EXPECT_EQ("-3.5x", s);
+}
+TEST(TMonom, getmonom) {
+	TMonom p("-3.5x^2y^6z^7");
+	string s = p.GetMonom();
+	EXPECT_EQ("-3.5x^2y^6z^7", s);
+}
+
+TEST(TMonom, getmonomcovn_simple) {
+	TMonom p("4xyz");
+	string s = p.GetMonomConv();
+	EXPECT_EQ("xyz", s);
+}
+
+TEST(TMonom, getmonomcovn_with_one_parametr) {
+	TMonom p("4x");
+	string s = p.GetMonomConv();
+	EXPECT_EQ("x", s);
+}
+
+TEST(TMonom, getmonomcovn) {
+	TMonom p("-3.5x^2y^6z^7");
+	string s = p.GetMonomConv();
+	EXPECT_EQ("x^2y^6z^7", s);
+}
+

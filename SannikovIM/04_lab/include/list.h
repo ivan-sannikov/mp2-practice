@@ -111,6 +111,7 @@ public:
 
 	}
 	TNode<T>* GetFirst() const { return this->pFirst;}
+	TNode<T>* GetStop() const { return this->pStop; }
 
 	void DeleteLast() {
 		if (pFirst == pStop)
@@ -143,6 +144,23 @@ public:
 		TNode<T>* tmp = pFirst->pNext;
 		delete pFirst;
 		this->pFirst = tmp;
+	}
+	void Delete(T key) {
+		if (this->pFirst == pStop) throw "First element is null";
+		//cout << (this->pFirst->pNext == pStop) << endl;
+		if (this->pFirst->pNext == pStop) {
+			this->pFirst = pStop; return;
+		}
+		TNode<T>* tmp = pFirst;
+		TNode<T>* tmp1 = nullptr;
+		while (tmp != pStop && tmp->key != key) {
+			tmp1 = tmp;
+			tmp = tmp->pNext;
+		}
+		if (tmp1 == nullptr) { this->DeleteFirst(); return; }
+		tmp1->pNext = tmp->pNext;
+		delete tmp;
+		
 	}
 
 };
