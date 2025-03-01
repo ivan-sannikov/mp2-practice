@@ -1,6 +1,6 @@
 #include <gtest.h>
 #include "TMonom.h"
-#include <gtest/gtest.h>
+
 
 TEST(TMonom, can_create_monom) {
 	ASSERT_NO_THROW(TMonom("-3xyz"));

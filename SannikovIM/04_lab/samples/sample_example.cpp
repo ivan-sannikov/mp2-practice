@@ -13,7 +13,7 @@ int main() {
 	setlocale(LC_ALL, "Russian");
 	//TMonom<int> s("-3x");
 	//cout<<s.GetValue()<< "  "<<s.GetConvolution()<<endl;
-	TPolinom<int> s("3x^2y^3z^2+3x^2y^3z^2-2x^3y^2z^3-5x^3y^2z^3+3x^2y^3z^2+2z+1+2");
+	TPolinom<int> s("3x^2y^3z^2+3x^2y^3z^2-2x^3y^2z^3-5x^3y^2z^3+3x^2y^3z^2+2z");
 
 	
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 template <typename T>
 struct TNode {
 	T key;
@@ -8,7 +9,6 @@ struct TNode {
 	TNode(T k) : key(k), pNext(nullptr) {}
 
 };
-
 template <typename T>
 class TList {
 protected:

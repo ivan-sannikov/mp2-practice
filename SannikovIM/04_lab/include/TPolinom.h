@@ -1,5 +1,6 @@
 #pragma once
 #include "TMonom.h"
+#include "list.h"
 #include "ringheadlist.h"
 #include <string>
 #include <iostream>
@@ -9,28 +10,33 @@ template <typename T>
 class TPolinom{
 private: 
     TRingHeadList<TMonom> polinomslist;
-    TList<TMonom> list;
+    //TList<TMonom> list;
 
-  /*  int partition(vector<int>& vec, int low, int high) {
-        int pivot = vec[high];
-        int i = (low - 1);
-        for (int j = low; j <= high - 1; j++) {
-            if (vec[j] <= pivot) {
-                i++;
-                swap(vec[i], vec[j]);
-            }
-        }
-        swap(vec[i + 1], vec[high]);
-        return (i + 1);
-    }
-
-    void quickSort(vector<int>& vec, int low, int high) {
-        if (low < high) {
-            int pi = partition(vec, low, high);
-            quickSort(vec, low, pi - 1);
-            quickSort(vec, pi + 1, high);
-        }
-    }*/
+    void SortPolinoms(){
+		TRingHeadList<TMonom> list;
+		while(this->polinomslist.GetFirst() != nullptr){
+			TNode<TMonom>* tmp = polinomslist.GetFirst();
+			TNode<TMonom>* tmpmin = polinomslist.GetFirst();
+			
+				while(tmp != nullptr){
+					
+					if(tmp->key.GetConvolution() < tmpmin->key.GetConvolution()){
+						tmpmin = tmp;
+					}
+					tmp = tmp->pNext;
+				}
+			
+			polinomslist.Delete(tmpmin->key);
+			list.InsertAfter(list.GetFirst()->key, tmpmin->key);
+			
+		}
+	polinomslist = list;
+	TNode<TMonom>* tmp = list.GetFirst();
+	while(tmp != nullptr){
+		cout<<tmp->key.GetConvolution()<<endl;
+		tmp = tmp->pNext;
+	}
+	}
 public:
     TPolinom(string polinom){
     
@@ -68,8 +74,11 @@ public:
         }
         TMonom t(monom);
         this->polinomslist.InsertEnd(t);
-        TNode<TMonom>* a = polinomslist.GetFirst();
+		SortPolinoms();
+       // TNode<TMonom>* a = polinomslist.GetFirst();
         
     }
+
+	//bool operator==(TPolinom<T>& pol)
   
 };
