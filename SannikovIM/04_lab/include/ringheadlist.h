@@ -18,40 +18,44 @@ public:
 	void SetHead(TNode<T>* q) {
 		this->pHead = q;
 		this->pStop = this->pHead;
-		//this->pHead->pNext = this->pFirst;
+		this->pHead->pNext = this->pFirst;
 		this->pFirst = this->pHead;
 	}
-	TNode<T>* GetHead() { return this->pHead; }
 	void InsertEnd(T key) {
 		TNode<T>* tmp1 = new TNode<T>(key);
 		if (pFirst == pStop) {
 			this->pFirst = tmp1;
-			this->pFirst->pNext = this->pHead;
+			//this->pStop = this->pHead;
+			this->pFirst->pNext = this->pStop;
 			return;
 		}
 		TNode<T>* tmp = this->pFirst;
 		while (tmp->pNext != pStop) {
 			tmp = tmp->pNext;
 		}
-		tmp1->pNext = this->pHead;
+		tmp1->pNext = this->pStop;
 		tmp->pNext = tmp1;
-		//this->pHead->pNext = this->pFirst;
-		
-		//cout << tmp1->pNext << endl;
+		this->pHead->pNext = this->pFirst;
 
 	}
-	void InsertFirst(T key) {
-		TNode<T>* tmp1 = new TNode<T>(key);
-		if (pFirst == pStop) {
-			pFirst = tmp1;
-			pFirst->pNext = this->pHead;
-			
+	void DeleteLast() {
+		if (pFirst == pStop)
+			throw "List is empty";
+
+		if (pFirst->pNext == pStop) {
+			delete pFirst;
+			pFirst = pStop;
+			this->pHead->pNext = this->pFirst;
 			return;
 		}
-		TNode<T>* tmp = this->pFirst;
-		tmp1->pNext = tmp;
-		this->pFirst = tmp1;
-		
+
+		TNode<T>* tmp = pFirst;
+		while (tmp->pNext != pLast) {
+			tmp = tmp->pNext;
+		}
+
+		delete pLast;
+		tmp->pNext = pStop;
+		this->pLast = tmp;
 	}
-	
 };
