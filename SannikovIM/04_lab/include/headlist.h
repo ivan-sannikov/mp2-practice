@@ -4,11 +4,18 @@ template <typename T>
 class THeadList : public TList<T> {
 protected:
 	TNode<T>* pHead;
+
 public:
 	THeadList(){
-		this->pFirst = this->pStop;
-		this->pHead = new TNode<T>(T());
-		this->pHead->pNext = this->pFirst;
+	//	this->pFirst = this->pStop;
+		this->pHead = nullptr;
+		
+		//this->pHead->pNext = this->pFirst;
 		
 	}
+	void SetHead(TNode<T>* q) {
+		this->pHead = q;
+		this->pHead->pNext = this->pFirst;
+	}
+	
 };

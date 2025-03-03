@@ -7,7 +7,14 @@ struct TNode {
 	TNode* pNext;
 	TNode(): key(new T()), pNext(nullptr){}
 	TNode(T k) : key(k), pNext(nullptr) {}
-
+	//TNode(T k, TNode<T>* next) : key(k), pNext(next) {}
+	/*bool operator==(TNode<T>* nd) {
+		if (this->key != nd->key || this->pNext != nd->pNext) return 0;
+		return 1;
+	}
+	bool operator!=(TNode<T>* nd) {
+		return !(this == nd&);
+	}*/
 };
 template <typename T>
 class TList {
@@ -50,14 +57,17 @@ public:
 		TNode<T>* tmp1 = new TNode<T>(key);
 		if (pFirst == pStop) {
 			pFirst = tmp1;
+			pFirst->pNext = this->pStop;
 			return;
 		}
 		TNode<T>* tmp = this->pFirst;
 		while (tmp->pNext != pStop) {
 			tmp = tmp->pNext;
 		}
+		tmp1->pNext = this->pStop;
 		tmp->pNext = tmp1;
-
+		//cout << tmp1->pNext << endl;
+		
 	}
 	void InsertBefore(T searchKey, T key) {
 		TNode<T>* tmp1 = new TNode<T>(key);
@@ -152,12 +162,12 @@ public:
 			this->pFirst = pStop; return;
 		}
 		TNode<T>* tmp = pFirst;
-		TNode<T>* tmp1 = nullptr;
+		TNode<T>* tmp1 = pStop;
 		while (tmp != pStop && tmp->key != key) {
 			tmp1 = tmp;
 			tmp = tmp->pNext;
 		}
-		if (tmp1 == nullptr) { this->DeleteFirst(); return; }
+		if (tmp1 == pStop) { this->DeleteFirst(); return; }
 		tmp1->pNext = tmp->pNext;
 		delete tmp;
 		

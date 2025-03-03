@@ -29,7 +29,7 @@ public:
 		int i = 0;
 		string newNum = "";
 	//	cout << pMem[i] << endl;;
-		while ((pMem[i] != 'x' && pMem[i] != 'X' && pMem[i] != 'y' && pMem[i] != 'Y' && pMem[i] != 'z' && pMem[i] != 'Z') && i<this->len) {
+		while ((this->pMem[i] != 'x' && this->pMem[i] != 'X' && this->pMem[i] != 'y' && this->pMem[i] != 'Y' && this->pMem[i] != 'z' && this->pMem[i] != 'Z') && i<this->len) {
 			newNum += pMem[i];
 			i++;
 		
