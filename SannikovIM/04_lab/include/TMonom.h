@@ -11,8 +11,29 @@ private:
 public:
 	TMonom(){}
 	TMonom(string pMem){
-		this->pMem = pMem;
+	//	this->pMem = pMem;
+		this->len = strlen(pMem.c_str());
+		string newNum1 = "";
+
+		for (int i = 0; i < len; i++) {
+			if (pMem[i] != ' ' && pMem[i] != '+') {
+				newNum1 += pMem[i];
+			}
+		}
+		this->pMem = newNum1;
 		this->len = strlen(this->pMem.c_str());
+		string newNum = "";
+		int i = 0;
+		while ((this->pMem[i] != 'x' && this->pMem[i] != 'X' && this->pMem[i] != 'y' && this->pMem[i] != 'Y' && this->pMem[i] != 'z' && this->pMem[i] != 'Z') && i < this->len) {
+			newNum += pMem[i];
+			i++;
+
+		}
+		if (newNum == "") {
+			newNum = "1";
+			this->pMem = "1" + this->pMem;
+			this->len = strlen(this->pMem.c_str());
+		}
 	}
 	TMonom(const TMonom& mon){
 		this->pMem = mon.pMem;
@@ -28,7 +49,6 @@ public:
 	double GetValue(){
 		int i = 0;
 		string newNum = "";
-	//	cout << pMem[i] << endl;;
 		while ((this->pMem[i] != 'x' && this->pMem[i] != 'X' && this->pMem[i] != 'y' && this->pMem[i] != 'Y' && this->pMem[i] != 'z' && this->pMem[i] != 'Z') && i<this->len) {
 			newNum += pMem[i];
 			i++;
@@ -143,5 +163,20 @@ public:
 			z = "z^" + to_string((int)this->GetConvolution() % 100 % 10);
 		return x + y + z;
 	}
-
+	string GetMonomConv(double conv) {
+		string x, y, z;
+		if ((int)conv / 100 == 0) x = "";
+		else if ((int)conv / 100 == 1) x = "x";
+		else
+			x = "x^" + to_string((int)conv / 100);
+		if ((int)conv / 10 % 10 == 0) y = "";
+		else if ((int)conv / 10 % 10 == 1) y = "y";
+		else
+			y = "y^" + to_string((int)conv / 10 % 10);
+		if ((int)conv % 100 % 10 == 0) z = "";
+		else if ((int)conv % 100 % 10 == 1) z = "z";
+		else
+			z = "z^" + to_string((int)conv % 100 % 10);
+		return x + y + z;
+	}
 };

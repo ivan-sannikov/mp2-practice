@@ -104,7 +104,8 @@ public:
 		this->pFirst = tmp1;
 	}
 	TNode<T>* GetFirst() const { return this->pFirst;}
-	TNode<T>* GetStop() const { return this->pStop; } // TODO: remove
+	TNode<T>* GetLast() const { return this->pLast; }
+	//TNode<T>* GetStop() const { return this->pStop; } // TODO: remove
 
 	void DeleteLast() {
 		if (pFirst == pStop)

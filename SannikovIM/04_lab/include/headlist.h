@@ -14,11 +14,12 @@ public:
 		this->pHead = new TNode<T>(key);
 		this->pHead->pNext = this->pFirst;
 	}
-	TNode<T>* GetHead() { return this->pHead; }
+	TNode<T>* GetHead() const { return this->pHead; }
 	void InsertFirst(T key) {
 		TNode<T>* tmp1 = new TNode<T>(key);
 		if (pFirst == pStop) {
 			this->pFirst = tmp1;
+			this->pFirst->pNext = this->pStop;
 			this->pLast = this->pFirst;
 			this->pHead->pNext = this->pFirst;
 			return;
