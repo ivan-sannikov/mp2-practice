@@ -207,16 +207,19 @@ public:
             int y = sv / 10 % 10;
             int z = sv % 100 % 10;
             double value = tmp->key.GetValue();
-            if (x != 0 || y != 0 || z != 0) {
             if (x != 0) {
-                value *= x; x--;
-            }
-            
-                stringstream str;
-                str << value;
-                string s = str.str();
-                TMonom t(s + compileMonom(x, y, z));
-                list.InsertEnd(t);
+                if (y != 0 || z != 0) {
+
+                    value *= x; x--;
+
+
+                    stringstream str;
+                    str << value;
+                    string s = str.str();
+                    TMonom t(s + compileMonom(x, y, z));
+                    list.InsertEnd(t);
+                }
+                
             }
             tmp = tmp->pNext;
         }
@@ -244,16 +247,18 @@ public:
             int z = sv % 100 % 10;
             
             double value = tmp->key.GetValue();
-            if (x != 0 || y != 0 || z != 0) {
             if (y != 0) {
-                value *= y; y--;
-            }
-            
-                stringstream str;
-                str << value;
-                string s = str.str();
-                TMonom t(s + compileMonom(x, y, z));
-                list.InsertEnd(t);
+                if (x != 0 || z != 0) {
+
+                    value *= y; y--;
+
+
+                    stringstream str;
+                    str << value;
+                    string s = str.str();
+                    TMonom t(s + compileMonom(x, y, z));
+                    list.InsertEnd(t);
+                }
             }
             tmp = tmp->pNext;
         }
@@ -279,16 +284,18 @@ public:
             int y = sv / 10 % 10;
             int z = sv % 100 % 10;
             double value = tmp->key.GetValue();
-            if (x != 0 || y != 0 || z != 0) {
             if (z != 0) {
-                value *= z; z--;
-                
-            }
-                stringstream str;
-                str << value;
-                string s = str.str();
-                TMonom t(s + compileMonom(x, y, z));
-                list.InsertEnd(t);
+                if (x != 0 || y != 0) {
+
+                    value *= z; z--;
+
+
+                    stringstream str;
+                    str << value;
+                    string s = str.str();
+                    TMonom t(s + compileMonom(x, y, z));
+                    list.InsertEnd(t);
+                }
             }
             tmp = tmp->pNext;
         }
