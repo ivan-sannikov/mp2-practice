@@ -14,7 +14,8 @@ private:
     void CheckPolinoms(string monom) {
         TMonom t(monom);
         TNode<TMonom>* tmp = this->polinomslist.GetFirst();
-        if (tmp != polinomslist.GetLast()->pNext) {
+        this->polinomslist.reset();
+        if (!this->polinomslist.isended()) {
             while (tmp->key.GetConvolution() != t.GetConvolution() && tmp->pNext != polinomslist.GetLast()->pNext)
             {
                 tmp = tmp->pNext;
@@ -49,7 +50,6 @@ private:
 
     void SortPolinoms() {
         TRingHeadList<TMonom> list;
-        list.SetHead(this->polinomslist.GetHead()->key);
         while (this->polinomslist.GetFirst() != this->polinomslist.GetLast()->pNext) {
             TNode<TMonom>* tmp = this->polinomslist.GetFirst();
             TNode<TMonom>* tmpmin = this->polinomslist.GetFirst();
@@ -112,9 +112,8 @@ private:
     }
 	
 public:
+    TPolinom(){}
     TPolinom(string polinom){
-        TMonom t1("0z^-1");
-        this->polinomslist.SetHead(t1);
         int len = strlen(polinom.c_str());
         int i = 0;
         string monom = "";
@@ -132,14 +131,8 @@ public:
         
     }
 
-    TPolinom() {
-        TMonom t1("0z^-1");
-        this->polinomslist.SetHead(t1);
-    }
 
     TPolinom(TRingHeadList<TMonom>& list) {
-        TMonom t1("0z^-1");
-        this->polinomslist.SetHead(t1);
         TNode<TMonom>* tmp = list.GetFirst();
         while (tmp != list.GetLast()->pNext) {
             this->polinomslist.InsertEnd(tmp->key);
@@ -151,8 +144,7 @@ public:
 
     TPolinom(const TPolinom& other) {
         
-        TMonom zeroMonom(other.GetList().GetHead()->key.GetMonom());
-        this->polinomslist.SetHead(zeroMonom);
+
         TNode<TMonom>* tmp = other.polinomslist.GetFirst();
         while (tmp != other.polinomslist.GetLast()->pNext) {
             this->polinomslist.InsertEnd(tmp->key);
@@ -200,7 +192,6 @@ public:
     void DiffX() {
         TNode<TMonom>* tmp = this->polinomslist.GetFirst();
         TRingHeadList<TMonom> list;
-        list.SetHead(this->polinomslist.GetHead()->key);
         while (tmp != this->polinomslist.GetLast()->pNext) {
             int sv = tmp->key.GetConvolution();
             int x = sv / 100;
@@ -239,7 +230,6 @@ public:
     void DiffY() {
         TNode<TMonom>* tmp = this->polinomslist.GetFirst();
         TRingHeadList<TMonom> list;
-        list.SetHead(this->polinomslist.GetHead()->key);
         while (tmp != this->polinomslist.GetLast()->pNext) {
             int sv = tmp->key.GetConvolution();
             int x = sv / 100;
@@ -277,7 +267,6 @@ public:
     void DiffZ() {
         TNode<TMonom>* tmp = this->polinomslist.GetFirst();
         TRingHeadList<TMonom> list;
-        list.SetHead(this->polinomslist.GetHead()->key);
         while (tmp != this->polinomslist.GetLast()->pNext) {
             int sv = tmp->key.GetConvolution();
             int x = sv / 100;
@@ -338,11 +327,11 @@ public:
                 str << b;
                 string s = str.str() + a->key.GetMonomConv();
                 TMonom t(s);
-                this->polinomslist.InsertEnd(t);
+                if (t.GetValue() != 0) { this->polinomslist.InsertEnd(t); }
                 this->polinomslist.Delete(tmp->key);
             }
             else {
-                this->polinomslist.InsertEnd(tmp->key);
+                if (tmp->key.GetValue() != 0) { this->polinomslist.InsertEnd(tmp->key); }
             }
             tmp = tmp->pNext;
         }
@@ -358,7 +347,7 @@ public:
             str << b;
             string s = str.str() + mon.GetMonomConv();
             TMonom t(s);
-            this->polinomslist.InsertEnd(t);
+            if (t.GetValue() != 0) { this->polinomslist.InsertEnd(t); }
             this->polinomslist.Delete(mon);
         }
         else {
@@ -367,7 +356,7 @@ public:
             str << b;
             string s = str.str() + mon.GetMonomConv();
             TMonom t(s);
-            this->polinomslist.InsertEnd(t);
+            if (t.GetValue() != 0) { this->polinomslist.InsertEnd(t); }
         }
         SortPolinoms();
         return *this;
@@ -380,7 +369,6 @@ public:
     TPolinom operator*(int scalar) {
         TNode<TMonom>* tmp = this->polinomslist.GetFirst();
         TRingHeadList<TMonom> list;
-        list.SetHead(this->polinomslist.GetHead()->key);
         while (tmp != this->polinomslist.GetLast()->pNext) {
             double b = tmp->key.GetValue() * scalar;
             stringstream str;
@@ -406,7 +394,6 @@ public:
     TPolinom operator*(TMonom& monom) {
         TNode<TMonom>* tmp = this->polinomslist.GetFirst();
         TRingHeadList<TMonom> list;
-        list.SetHead(this->polinomslist.GetHead()->key.GetMonom());
         while (tmp != this->polinomslist.GetLast()->pNext) {
             double b = tmp->key.GetValue() * monom.GetValue();
             stringstream str;

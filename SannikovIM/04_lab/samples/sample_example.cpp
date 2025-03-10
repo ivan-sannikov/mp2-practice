@@ -12,37 +12,37 @@
 using namespace std;
 
 int main() {
-	setlocale(LC_ALL, "Russian");
+	//setlocale(LC_ALL, "Russian");
 	char flag = 'n';
 	bool isNew = 0;
-	cout << "Введите полином:\n" << endl;
+	cout << "Enter Polinom:\n" << endl;
 	string pol;
 	cin >> pol;
 	TPolinom polinom1(pol);
 	while (flag != 'y' && flag != 'Y') {
 		cout << endl << polinom1 << endl << endl;
 		isNew = 0;
-		cout << "Выберите действие:" << endl;
-		cout << "1) Сложение" << endl;
-		cout << "2) Вычитание" << endl;
-		cout << "3) Умножение" << endl;
-		cout << "4) Дифференцирование" << endl;
-		cout << "5) Поменять полином" << endl;
-		cout << "6) Выйти" << endl;
+		cout << "Choose:" << endl;
+		cout << "1) +" << endl;
+		cout << "2) -" << endl;
+		cout << "3) *" << endl;
+		cout << "4) Diff" << endl;
+		cout << "5) Change Polinom" << endl;
+		cout << "6) Exit" << endl;
 		int n;
 		int a;
 		cin >> n;
 		switch (n) {
 		case 1:
-			cout << "Выберите действие:" << endl;
-			cout << "1) С мономом" << endl;
-			cout << "2) С полиномом" << endl;
-			cout << "3) Выйти" << endl;
+			cout << "Choose:" << endl;
+			cout << "1) + Monom" << endl;
+			cout << "2) + Polinom" << endl;
+			cout << "3) Exit" << endl;
 			cin >> a;
 			switch (a) {
 			case 1:
 			{
-				cout << "Введите моном:\n" << endl;
+				cout << "Monom:\n" << endl;
 				string d;
 				cin >> d;
 				TMonom m(d);
@@ -52,7 +52,7 @@ int main() {
 			}
 			case 2:
 			{
-				cout << "Введите полином:\n" << endl;
+				cout << "Polinom:\n" << endl;
 				cin >> pol;
 				TPolinom polinom2(pol);
 				polinom1 = polinom1 + polinom2;
@@ -66,15 +66,15 @@ int main() {
 			break;
 
 		case 2:
-			cout << "Выберите действие:" << endl;
-			cout << "1) С мономом" << endl;
-			cout << "2) С полиномом" << endl;
-			cout << "3) Выйти" << endl;
+			cout << "Choose:" << endl;
+			cout << "1) - Monom" << endl;
+			cout << "2) - Polinom" << endl;
+			cout << "3) Exit" << endl;
 			cin >> a;
 			switch (a) {
 			case 1:
 			{
-				cout << "Введите моном:\n" << endl;
+				cout << "Monom:\n" << endl;
 				string d;
 				cin >> d;
 				TMonom m(d);
@@ -84,7 +84,7 @@ int main() {
 			}
 			case 2:
 			{
-				cout << "Введите полином:\n" << endl;
+				cout << "Polinom:\n" << endl;
 				cin >> pol;
 				TPolinom polinom2(pol);
 				polinom1 = polinom1 - polinom2;
@@ -97,15 +97,15 @@ int main() {
 			}
 			break;
 		case 3:
-			cout << "Выберите действие:" << endl;
-			cout << "1) С скаляром" << endl;
-			cout << "2) С мономом" << endl;
-			cout << "3) С полиномом" << endl;
-			cout << "4) Выйти" << endl;
+			cout << "Choose:" << endl;
+			cout << "1) * Integer" << endl;
+			cout << "2) * Monom" << endl;
+			cout << "3) * Polinom" << endl;
+			cout << "4) Exit" << endl;
 			cin >> a;
 			switch (a) {
 			case 1: {
-				cout << "Введите скаляр:\n" << endl;
+				cout << "Integer:\n" << endl;
 				int d;
 				cin >> d;
 
@@ -115,7 +115,7 @@ int main() {
 			}
 			case 2:
 			{
-				cout << "Введите моном:\n" << endl;
+				cout << "Monom\n" << endl;
 				string d;
 				cin >> d;
 				TMonom m(d);
@@ -125,7 +125,7 @@ int main() {
 			}
 			case 3:
 			{
-				cout << "Введите полином:\n" << endl;
+				cout << "Polinom:\n" << endl;
 				cin >> pol;
 				TPolinom polinom2(pol);
 				polinom1 = polinom1 * polinom2;
@@ -138,11 +138,11 @@ int main() {
 			}
 			break;
 		case 4:
-			cout << "Выберите действие:" << endl;
-			cout << "1) По x" << endl;
-			cout << "2) По y" << endl;
-			cout << "3) По z" << endl;
-			cout << "4) Выйти" << endl;
+			cout << "Choose:" << endl;
+			cout << "1) X" << endl;
+			cout << "2) Y" << endl;
+			cout << "3) Z" << endl;
+			cout << "4) Exit" << endl;
 			cin >> a;
 			switch (a) {
 			case 1: {
@@ -169,7 +169,7 @@ int main() {
 			break;
 
 		case 5: {
-			cout << "Введите новый полином:\n" << endl;
+			cout << "Enter new Polinom:\n" << endl;
 			cin >> pol;
 			TPolinom polinom2(pol);
 			polinom1 = polinom2;
@@ -182,8 +182,8 @@ int main() {
 			break;
 		}
 		if (isNew == 0) {
-			cout << "Хотите выйти?" << endl;
-			cout << "(Да - y, Нет - n): ";
+			cout << "Exit?" << endl;
+			cout << "(Yes - y, No - n): ";
 			cin >> flag;
 		}
 	}

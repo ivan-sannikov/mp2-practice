@@ -5,7 +5,7 @@ template <typename T>
 struct TNode {
 	T key;
 	TNode* pNext;
-	TNode(): key(new T()), pNext(nullptr){}
+	TNode(): key(), pNext(nullptr){}
 	TNode(T k) : key(k), pNext(nullptr) {}
 };
 template <typename T>
@@ -18,7 +18,7 @@ protected:
 	TNode<T>* pStop = nullptr;
 public:
 	
-	TList() :pFirst(nullptr) {}
+	TList() : pFirst(nullptr) {}
 	TList(const TList& other) : pFirst(pStop) {
 		if (other.pFirst == pStop) {
 			return;
@@ -26,7 +26,7 @@ public:
 		pFirst = new TNode<T>(other.pFirst->key);
 		TNode<T>* tmp = pFirst;
 		TNode<T>* curr = other.pFirst->pNext;
-		while (curr != pStop) {
+		while (curr != other.pStop) {
 			tmp->pNext = new TNode<T>(curr->key);
 			tmp = tmp->pNext;
 			curr = curr->pNext;
@@ -39,8 +39,8 @@ public:
 			delete tmp;
 		}
 	}
-	TNode<T>* Search(T key) { // TODO: pPrev è pCurr
-		if (this->pFirst == pStop) throw "First element is null";
+	TNode<T>* Search(T key) {
+		if (this->pFirst == pStop) return nullptr;
 		this->pCurr = this->pFirst;
 		this->pPrev = this->pStop;
 		while (this->pCurr != pStop && this->pCurr->key != key) { 
@@ -49,71 +49,68 @@ public:
 		}
 		return pCurr;
 	}
-	void InsertEnd(T key) { 
-		TNode<T>* tmp1 = new TNode<T>(key);
-		if (pFirst == pStop) {
-			this->pFirst = tmp1;
-			this->pFirst->pNext = this->pStop; 
-			this->pLast = pFirst;// TODO: pLast = pFirst
+	virtual void InsertEnd(T key) { 
+		if (pFirst == nullptr) {
+			this->InsertFirst(key);
 			return;
 		}
-		 // TODO: pLast->pNext = tmp1; pLast = tmp1; pLast->pNext = pStop;
+		TNode<T>* tmp1 = new TNode<T>(key);
 		this->pLast->pNext = tmp1;
 		this->pLast = tmp1;
 		this->pLast->pNext = pStop;
 	}
 	void InsertBefore(T searchKey, T key) {
-		TNode<T>* tmp1 = new TNode<T>(key);
-		if (pFirst == pStop) {
-			pFirst = tmp1;
-			return;
-		}
-	
 		TNode<T>* tmp = Search(searchKey); // TODO: search pPrev è pCurr
+		if (tmp == nullptr)
+		{
+			throw ""; // TODO
+		}
 		if (tmp == this->pFirst) {
 			this->InsertFirst(key);
 			return;
 		}
+		TNode<T>* tmp1 = new TNode<T>(key);
 		this->pPrev->pNext = tmp1;
 		tmp1->pNext = this->pCurr;
-
 	}
 	void InsertAfter(T searchKey, T key) { 
-		TNode<T>* tmp1 = new TNode<T>(key);
-		if (pFirst == pStop) {
-			pFirst = tmp1;
-			return;
+		TNode<T>* tmp = Search(searchKey); 
+		if (tmp == nullptr)
+		{
+			throw ""; // TODO
 		}
-		TNode<T>* tmp = Search(searchKey);  // TODO: search pCurr
 		if (tmp == this->pLast) {
 			this->InsertEnd(key);
 			return;
 		}
-		tmp1->pNext = tmp->pNext;
-		tmp->pNext = tmp1;
+		TNode<T>* tmp1 = new TNode<T>(key);
+		tmp1->pNext = pCurr->pNext;
+		pCurr->pNext = tmp1;
 
 	}
-	void InsertFirst(T key) {
+	virtual void InsertFirst(T key) {
 		TNode<T>* tmp1 = new TNode<T>(key);
-		if (pFirst == pStop) {
+		if (pFirst == nullptr) {
 			this->pFirst = tmp1;
-			this->pLast = this->pFirst;// TODO: pLast = pFist
+			this->pFirst->pNext = this->pStop;
+			this->pLast = this->pFirst;
 			return;
 		}
 		tmp1->pNext = this->pFirst;
 		this->pFirst = tmp1;
 	}
 	TNode<T>* GetFirst() const { return this->pFirst;}
-	TNode<T>* GetLast() const { return this->pLast; }
-	//TNode<T>* GetStop() const { return this->pStop; } // TODO: remove
+	TNode<T>* GetLast() const { return this->pLast; } // TODO: remove
 
-	void DeleteLast() {
-		if (pFirst == pStop)
+	// TODO: reset(), getcurr(), next(), isended()
+
+	virtual void DeleteLast() {
+		if (pFirst == nullptr)
 			throw "List is empty";
 
 		if (pFirst->pNext == pStop) {
 			delete pFirst;
-			pFirst = pStop;
+			pFirst = nullptr;
 			return;
 		}
 
@@ -126,13 +123,13 @@ public:
 		tmp->pNext = pStop;
 		this->pLast = tmp;
 	}
-	void DeleteFirst() {
-		if (pFirst == pStop)
-			throw "List is empty"; // TODO: throw
+	virtual void DeleteFirst() {
+		if (pFirst == nullptr)
+			throw "List is empty";
 
 		if (pFirst->pNext == pStop) {
 			delete pFirst;
-			pFirst = pLast = pStop;
+			pFirst = pLast = nullptr;
 			return;
 		}
 
@@ -141,15 +138,36 @@ public:
 		this->pFirst = tmp;
 	}
 	void Delete(T key) {
-		if (this->pFirst == pStop) throw "First element is null";
-		if (this->pFirst->pNext == pStop) {
-			this->pFirst = pStop; return;
-		}
+		if (this->pFirst == nullptr) throw "First element is null";
 		TNode<T>* tmp = Search(key);
-		//if (tmp1 == pStop) { this->DeleteFirst(); return; } // TODO: ???
-		this->pPrev -> pNext = tmp->pNext;
-		delete tmp;
-		
+		if (tmp == nullptr)
+		{
+			throw ""; // TODO
+		}
+		if (pCurr == pFirst)
+		{
+			DeleteFirst();
+			return;
+		}
+		if (pCurr == pLast)
+		{
+			DeleteLast();
+			return;
+		}
+		this->pPrev->pNext = pCurr->pNext;
+		delete pCurr;
+	}
+	void reset() {
+		this->pCurr = this->pFirst;
+		this->pPrev = nullptr;
+	}
+	TNode<T>* getcurr() { return this->pCurr; }
+	void next() {
+		this->pCurr = this->pCurr->pNext;
+		this->pPrev = this->pPrev->pNext;
+	}
+	bool isended() {
+		return this->pCurr == this->pLast->pNext;
 	}
 
 };

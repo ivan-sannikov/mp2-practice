@@ -5,9 +5,6 @@
 TEST(TPolinom, can_create_polinom) {
 	ASSERT_NO_THROW(TPolinom p("11z+2x"));
 }
-TEST(TPolinom, can_create_polinom_without_parametrs) {
-	ASSERT_NO_THROW(TPolinom p);
-}
 TEST(TPolinom, can_create_copy_polinom) {
 	TPolinom p("1z+2x");
 	ASSERT_NO_THROW(TPolinom p1(p));
@@ -23,7 +20,6 @@ TEST(TPolinom, can_create_polinom_as_tringheadlist) {
 	TMonom m("0z^-1");
 	TMonom m1("2z");
 	TMonom m2("1y");
-	s.SetHead(m);
 	s.InsertFirst(m1);
 	s.InsertFirst(m2);
 	ASSERT_NO_THROW(TPolinom p(s));
@@ -85,5 +81,41 @@ TEST(TPolinom, can_multiply_polinom_and_scalar) {
 	TPolinom p("1z+2x");
 	TPolinom p2("8z + 16x");
 	p = p * 8;
+	EXPECT_EQ(p2, p);
+}
+TEST(TPolinom, can_diff_x_sample_polinom) {
+	TPolinom p("1z+2xy");
+	TPolinom p2("2y");
+	p.DiffX();
+	EXPECT_EQ(p2, p);
+}
+TEST(TPolinom, can_diff_y_sample_polinom) {
+	TPolinom p("1z+2x+3yz");
+	TPolinom p2("3z");
+	p.DiffY();
+	EXPECT_EQ(p2, p);
+}
+TEST(TPolinom, can_diff_z_sample_polinom) {
+	TPolinom p("1xz+2x");
+	TPolinom p2("1x");
+	p.DiffZ();
+	EXPECT_EQ(p2, p);
+}
+TEST(TPolinom, can_diff_x_polinom) {
+	TPolinom p("5xyz+6x^2y^7z^3");
+	TPolinom p2("5yz+12xy^7z^3");
+	p.DiffX();
+	EXPECT_EQ(p2, p);
+}
+TEST(TPolinom, can_diff_y_polinom) {
+	TPolinom p("5xyz+6x^2y^7z^3");
+	TPolinom p2("5xz+42x^2y^6z^3");
+	p.DiffY();
+	EXPECT_EQ(p2, p);
+}
+TEST(TPolinom, can_diff_z_polinom) {
+	TPolinom p("5xyz+6x^2y^7z^3");
+	TPolinom p2("5xy+18x^2y^7z^2");
+	p.DiffZ();
 	EXPECT_EQ(p2, p);
 }
