@@ -10,6 +10,10 @@ public:
 		this->pHead = new TNode<T>();
 		this->pHead->pNext = this->pFirst;
 	}
+	THeadList(const THeadList& other) : TList<T>(other) {
+		this->pHead = new TNode<T>();
+		this->pHead->pNext = this->pFirst;
+	}
 	~THeadList() {
 		delete pHead;
 	}
@@ -20,6 +24,12 @@ public:
 	virtual void DeleteFirst() {
 		TList<T>::DeleteFirst();
 		this->pHead->pNext = this->pFirst;
+	}
+	THeadList& operator=(const THeadList& other) {
+		TList<T>::operator=(other);
+		this->pHead = new TNode<T>();
+		this->pHead->pNext = this->pFirst;
+		
 	}
 
 	

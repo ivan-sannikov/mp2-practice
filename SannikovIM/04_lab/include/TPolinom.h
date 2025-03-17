@@ -144,13 +144,17 @@ public:
         }
     }
     TPolinom(const TPolinom& other) {
-        other.polinomslist.reset();
+
+       /* other.polinomslist.reset();
         TNode<TMonom>* tmp = other.polinomslist.GetFirst();
         while (!other.polinomslist.isended()) {
             this->polinomslist.InsertEnd(tmp->key);
             tmp = tmp->pNext;
             other.polinomslist.next();
         }
+        */
+        TRingHeadList<TMonom> l(other.polinomslist);
+        this->polinomslist = l;
     }
 
     const TRingHeadList<TMonom>& GetList() const {
@@ -158,23 +162,27 @@ public:
     }
     
     bool operator==(const TPolinom& other) const {
-        this->polinomslist.reset();
-        other.polinomslist.reset();
+        TPolinom p1(*this);
+        TPolinom p2(other);
+        p1.polinomslist.reset();
+        p2.polinomslist.reset();
+     //   this->polinomslist.reset();
+       // other.polinomslist.reset();
 
-        TNode<TMonom>* tmpThis = this->polinomslist.GetFirst();
-        TNode<TMonom>* tmpOther = other.polinomslist.GetFirst();
+        TNode<TMonom>* tmpThis = p1.polinomslist.GetFirst();
+        TNode<TMonom>* tmpOther = p2.polinomslist.GetFirst();
 
-        while (!this->polinomslist.isended() && !other.polinomslist.isended()) {
+        while (!p1.polinomslist.isended() && !p2.polinomslist.isended()) {
             if (tmpThis->key != tmpOther->key) {
                 return false;
             }
             tmpThis = tmpThis->pNext;
             tmpOther = tmpOther->pNext;
-            this->polinomslist.next();
-            other.polinomslist.next();
+            p1.polinomslist.next();
+            p2.polinomslist.next();
         }
 
-        return this->polinomslist.isended() && other.polinomslist.isended();
+        return p1.polinomslist.isended() && p2.polinomslist.isended();
     }
     
     bool operator!=(const TPolinom& pol) const {
@@ -185,17 +193,18 @@ public:
         if (this == &other) {
             return *this;
         }
+        TPolinom p1(other);
         this->polinomslist.reset();
         while (!this->polinomslist.isended()) {
             this->polinomslist.DeleteFirst();
             this->polinomslist.reset();
         }
-        other.polinomslist.reset();
-        TNode<TMonom>* tmp = other.polinomslist.GetFirst();
-        while (!other.polinomslist.isended()) {
+        p1.polinomslist.reset();
+        TNode<TMonom>* tmp = p1.polinomslist.GetFirst();
+        while (!p1.polinomslist.isended()) {
             this->polinomslist.InsertEnd(tmp->key);
             tmp = tmp->pNext;
-            other.polinomslist.next();
+            p1.polinomslist.next();
         }
 
         return *this;

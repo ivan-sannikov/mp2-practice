@@ -12,8 +12,8 @@ template <typename T>
 class TList {
 protected:
 	TNode<T>* pFirst;
-	mutable TNode<T>* pCurr = pStop;
-	mutable TNode<T>* pPrev;
+	TNode<T>* pCurr = pStop;
+	TNode<T>* pPrev;
 	TNode<T>* pLast;
 	TNode<T>* pStop = nullptr;
 public:
@@ -31,6 +31,7 @@ public:
 			tmp = tmp->pNext;
 			curr = curr->pNext;
 		}
+		this->pLast = tmp;
 	}
 	~TList() {
 		while (pFirst != nullptr) {
@@ -163,7 +164,7 @@ public:
 		this->pPrev->pNext = pCurr->pNext;
 		delete pCurr;
 	}
-	void reset() const {
+	void reset() {
 		if (this->pFirst == nullptr) {
 			this->pCurr = this->pStop;
 			return;
@@ -172,14 +173,40 @@ public:
 		this->pPrev = nullptr;
 	}
 	TNode<T>* getcurr() { return this->pCurr; }
-	void next() const {
+	void next() {
 		this->pCurr = this->pCurr->pNext;
 		if (this->pPrev != nullptr) {
 			this->pPrev = this->pPrev->pNext;
 		}
 	}
-	bool isended() const {
+	bool isended()  {
 		return (pCurr == pStop);
+	}
+	bool operator==(const TList<T>& other) const {
+		if (this->pLast != other.pLast) return 0;
+		TNode<T>* tmp = this->pFirst;
+		TNode<T>* oth = other.pFirst;
+		while (tmp != nullptr && oth != nullptr) {
+			if(oth->key != tmp->key) return 0
+			tmp = tmp->pNext;
+			oth = oth->pNext;
+		}
+		if (oth == nullptr && tmp == nullptr) return 1;
+		return 0;
+	}
+	TList<T>& operator=(const TList& other) {
+		if (*this == &other)
+			return *this;
+		pFirst = new TNode<T>(other.pFirst->key);
+		TNode<T>* tmp = pFirst;
+		TNode<T>* curr = other.pFirst->pNext;
+		while (curr != other.pStop) {
+			tmp->pNext = new TNode<T>(curr->key);
+			tmp = tmp->pNext;
+			curr = curr->pNext;
+		}
+		this->pLast = tmp;
+		return *this;
 	}
 
 };
