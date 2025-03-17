@@ -7,15 +7,23 @@ public:
 		this->pStop = this->pHead;
 		this->pHead->pNext = this->pStop;
 	}
-	/*ingHeadList(const TRingHeadList& other) : THeadList<T>() {
-		this->pStop = this->pHead;
-		TNode<T>* current = other.pFirst;
-		while (current != other.pStop) {
-			this->InsertEnd(current->key);
-			current = current->pNext;
+	~TRingHeadList() {
+		if (this->pFirst == nullptr || this->pFirst == this->pStop) {
+			delete this->pHead;
+			this->pHead = nullptr;
+			return;
 		}
-	}*/
-
+		TNode<T>* tmp = this->pFirst;
+		while (tmp != this->pStop) {
+			TNode<T>* toDelete = tmp;
+			tmp = tmp->pNext;
+			delete toDelete;
+		}
+		delete this->pHead;
+		this->pHead = nullptr;
+		this->pFirst = nullptr;
+		this->pStop = nullptr;
+	}
 	void InsertEnd(T key) {
 		TList<T>::InsertEnd(key);
 		this->pHead->pNext = this->pFirst;
@@ -24,27 +32,5 @@ public:
 		TList<T>::DeleteLast();
 		this->pHead->pNext = this->pFirst;
 	}
-	/*
-	void Delete(T& key) {
-		if (this->pFirst == this->pStop) {
-			throw "List is empty"; 
-		}
-		TNode<T>* tmp = Search(key);
-		if (tmp == this->pStop) {
-			throw "Element not found"; 
-		}
-		if (this->pPrev == this->pStop) { 
-			this->pFirst = this->pFirst->pNext;
-			this->pHead->pNext = this->pFirst;
-		}
-		else { 
-			this->pPrev->pNext = tmp->pNext;
-		}
-		if (tmp == pLast) {
-			this->pLast = this->pPrev;
-			this->pPrev->pNext = this->pStop;
-		}
-		delete tmp;
-	}
-	*/
+
 };

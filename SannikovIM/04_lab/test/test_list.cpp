@@ -78,6 +78,35 @@ TEST(TList, can_delete_in_list) {
 	EXPECT_EQ(l.GetFirst()->key, 1);
 	EXPECT_EQ(l.GetFirst()->pNext->key, 3);
 }
-
+TEST(TList, can_getcurr_first_item) {
+	TList<int> l;
+	l.InsertEnd(1);
+	EXPECT_EQ(1, l.getcurr()->key);
+}
+TEST(TList, can_next_and_getcurr_item) {
+	TList<int> l;
+	l.InsertEnd(1);
+	l.InsertEnd(2);
+	l.next();
+	EXPECT_EQ(2, l.getcurr()->key);
+}
+TEST(TList, can_reset) {
+	TList<int> l;
+	l.InsertEnd(1);
+	l.InsertEnd(2);
+	l.next();
+	l.reset();
+	EXPECT_EQ(1, l.getcurr()->key);
+}
+TEST(TList, isended_is_work) {
+	TList<int> l;
+	l.InsertEnd(1);
+	l.InsertEnd(2);
+	l.InsertEnd(3);
+	l.next();
+	l.next();
+	l.next();
+	ASSERT_TRUE(l.isended());
+}
 
 

@@ -8,7 +8,6 @@ TEST(TRingHeadList, can_create_ringheadlist) {
 TEST(TRingHeadList, can_insertend_one_element_in_ringheadlist) {
 	TRingHeadList<int> l;
 	l.InsertEnd(1);
-	EXPECT_EQ(1, l.GetLast()->key);
 	EXPECT_EQ(1, l.GetFirst()->key);
 }
 TEST(TRingHeadList, can_insertend_more_elements_in_ringheadlist) {

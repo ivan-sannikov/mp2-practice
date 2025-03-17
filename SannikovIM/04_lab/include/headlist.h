@@ -11,7 +11,6 @@ public:
 		this->pHead->pNext = this->pFirst;
 	}
 	~THeadList() {
-	//	TList<T>::~TList();
 		delete pHead;
 	}
 	virtual void InsertFirst(T key) {

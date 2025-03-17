@@ -12,8 +12,8 @@ template <typename T>
 class TList {
 protected:
 	TNode<T>* pFirst;
-	TNode<T>* pCurr;
-	TNode<T>* pPrev;
+	mutable TNode<T>* pCurr = pStop;
+	mutable TNode<T>* pPrev;
 	TNode<T>* pLast;
 	TNode<T>* pStop = nullptr;
 public:
@@ -33,7 +33,7 @@ public:
 		}
 	}
 	~TList() {
-		while (pFirst != pStop) {
+		while (pFirst != nullptr) {
 			TNode<T>* tmp = pFirst;
 			pFirst = pFirst->pNext;
 			delete tmp;
@@ -94,13 +94,19 @@ public:
 			this->pFirst = tmp1;
 			this->pFirst->pNext = this->pStop;
 			this->pLast = this->pFirst;
+			this->reset();
 			return;
 		}
 		tmp1->pNext = this->pFirst;
 		this->pFirst = tmp1;
 	}
-	TNode<T>* GetFirst() const { return this->pFirst;}
-	TNode<T>* GetLast() const { return this->pLast; } // TODO: remove
+	TNode<T>* GetFirst() const {
+		if (pFirst == nullptr) {
+			return nullptr;
+		}
+		return pFirst;
+	}
+
 
 	// TODO: reset(), getcurr(), next(), isended()
 
@@ -138,11 +144,11 @@ public:
 		this->pFirst = tmp;
 	}
 	void Delete(T key) {
-		if (this->pFirst == nullptr) throw "First element is null";
+		if (this->pFirst == nullptr) throw "List is empty";
 		TNode<T>* tmp = Search(key);
 		if (tmp == nullptr)
 		{
-			throw ""; // TODO
+			throw "This item is not on the list"; // TODO
 		}
 		if (pCurr == pFirst)
 		{
@@ -157,17 +163,23 @@ public:
 		this->pPrev->pNext = pCurr->pNext;
 		delete pCurr;
 	}
-	void reset() {
+	void reset() const {
+		if (this->pFirst == nullptr) {
+			this->pCurr = this->pStop;
+			return;
+		}
 		this->pCurr = this->pFirst;
 		this->pPrev = nullptr;
 	}
 	TNode<T>* getcurr() { return this->pCurr; }
-	void next() {
+	void next() const {
 		this->pCurr = this->pCurr->pNext;
-		this->pPrev = this->pPrev->pNext;
+		if (this->pPrev != nullptr) {
+			this->pPrev = this->pPrev->pNext;
+		}
 	}
-	bool isended() {
-		return this->pCurr == this->pLast->pNext;
+	bool isended() const {
+		return (pCurr == pStop);
 	}
 
 };
