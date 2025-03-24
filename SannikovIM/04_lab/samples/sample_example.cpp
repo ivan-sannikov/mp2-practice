@@ -28,7 +28,8 @@ int main() {
 		cout << "3) *" << endl;
 		cout << "4) Diff" << endl;
 		cout << "5) Change Polinom" << endl;
-		cout << "6) Exit" << endl;
+		cout << "6) Calculate Polinom" << endl;
+		cout << "7) Exit" << endl;
 		int n;
 		int a;
 		cin >> n;
@@ -177,6 +178,18 @@ int main() {
 		}
 			  break;
 		case 6:
+		{
+			double* operands = new double[3];
+			cout << "X = ";
+			cin >> operands[0];
+			cout << "Y = ";
+			cin >> operands[1];
+			cout << "Z = ";
+			cin >> operands[2];
+			cout << "Result: " << polinom1(operands) << endl;
+		}
+			break;
+		case 7:
 			isNew = 1;
 			flag = 'y';
 			break;

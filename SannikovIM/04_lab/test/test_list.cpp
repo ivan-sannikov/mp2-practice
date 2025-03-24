@@ -109,4 +109,10 @@ TEST(TList, isended_is_work) {
 	ASSERT_TRUE(l.isended());
 }
 
-
+TEST(TList, can_copy_list) {
+	TList<int> l;
+	l.InsertEnd(1);
+	l.InsertEnd(2);
+	TList<int> l1(l);
+	EXPECT_EQ(l, l1);
+}

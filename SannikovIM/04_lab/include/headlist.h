@@ -10,12 +10,12 @@ public:
 		this->pHead = new TNode<T>();
 		this->pHead->pNext = this->pFirst;
 	}
-	THeadList(const THeadList& other) : TList<T>(other) {
+	THeadList(const THeadList& other) :TList<T>(other) {
 		this->pHead = new TNode<T>();
 		this->pHead->pNext = this->pFirst;
 	}
 	~THeadList() {
-		delete pHead;
+		delete this->pHead;
 	}
 	virtual void InsertFirst(T key) {
 		TList<T>::InsertFirst(key);
@@ -29,8 +29,7 @@ public:
 		TList<T>::operator=(other);
 		this->pHead = new TNode<T>();
 		this->pHead->pNext = this->pFirst;
-		
+		return *this;
 	}
-
 	
 };

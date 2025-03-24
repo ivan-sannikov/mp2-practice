@@ -3,6 +3,7 @@
 
 
 TEST(TRingHeadList, can_create_ringheadlist) {
+	TRingHeadList<int> l;
 	ASSERT_NO_THROW(TRingHeadList<int> l);
 }
 TEST(TRingHeadList, can_insertend_one_element_in_ringheadlist) {
@@ -16,3 +17,4 @@ TEST(TRingHeadList, can_insertend_more_elements_in_ringheadlist) {
 	l.InsertEnd(2);
 	EXPECT_EQ(2, l.GetFirst()->pNext->key);
 }
+

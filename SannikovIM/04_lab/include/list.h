@@ -18,13 +18,13 @@ protected:
 	TNode<T>* pStop = nullptr;
 public:
 	
-	TList() : pFirst(nullptr) {}
-	TList(const TList& other) : pFirst(pStop) {
-		if (other.pFirst == pStop) {
+	TList() : pFirst(nullptr), pLast(this->pFirst) {}
+	TList(const TList& other) : pFirst(nullptr) {
+		if (other.pFirst == nullptr) {
 			return;
 		}
-		pFirst = new TNode<T>(other.pFirst->key);
-		TNode<T>* tmp = pFirst;
+		this->pFirst = new TNode<T>(other.pFirst->key);
+		TNode<T>* tmp = this->pFirst;
 		TNode<T>* curr = other.pFirst->pNext;
 		while (curr != other.pStop) {
 			tmp->pNext = new TNode<T>(curr->key);
@@ -34,14 +34,41 @@ public:
 		this->pLast = tmp;
 	}
 	~TList() {
-		while (pFirst != nullptr) {
-			TNode<T>* tmp = pFirst;
-			pFirst = pFirst->pNext;
+		//if (this->pFirst == nulllptr) return;
+		while (this->pFirst != nullptr) {
+			TNode<T>* tmp = this->pFirst;
+			this->pFirst = this->pFirst->pNext;
 			delete tmp;
 		}
 	}
+	TList& operator=(const TList& other) {
+		if (this == &other) return *this;
+		while (this->pFirst != nullptr) {
+			TNode<T>* tmp = this->pFirst;
+			this->pFirst = this->pFirst->pNext;
+			delete tmp;
+		}
+		if (other.pFirst != nullptr) {
+			this->pFirst = new TNode<T>(other.pFirst->key);
+			TNode<T>* tmp = this->pFirst;
+			TNode<T>* curr = other.pFirst->pNext;
+			while (curr != nullptr) {
+				tmp->pNext = new TNode<T>(curr->key);
+				tmp = tmp->pNext;
+				curr = curr->pNext;
+			}
+			this->pLast = tmp;
+		}
+		else {
+			this->pFirst = nullptr;
+			this->pLast = nullptr;
+		}
+
+		return *this;
+
+	}
 	TNode<T>* Search(T key) {
-		if (this->pFirst == pStop) return nullptr;
+		if (this->pFirst == nullptr) return nullptr;
 		this->pCurr = this->pFirst;
 		this->pPrev = this->pStop;
 		while (this->pCurr != pStop && this->pCurr->key != key) { 
@@ -183,32 +210,20 @@ public:
 		return (pCurr == pStop);
 	}
 	bool operator==(const TList<T>& other) const {
-		if (this->pLast != other.pLast) return 0;
+		//if (this->pLast != other.pLast) return 0;
 		TNode<T>* tmp = this->pFirst;
 		TNode<T>* oth = other.pFirst;
 		while (tmp != nullptr && oth != nullptr) {
-			if(oth->key != tmp->key) return 0
+			if (oth->key != tmp->key) return 0;
 			tmp = tmp->pNext;
 			oth = oth->pNext;
 		}
 		if (oth == nullptr && tmp == nullptr) return 1;
 		return 0;
 	}
-	TList<T>& operator=(const TList& other) {
-		if (*this == &other)
-			return *this;
-		pFirst = new TNode<T>(other.pFirst->key);
-		TNode<T>* tmp = pFirst;
-		TNode<T>* curr = other.pFirst->pNext;
-		while (curr != other.pStop) {
-			tmp->pNext = new TNode<T>(curr->key);
-			tmp = tmp->pNext;
-			curr = curr->pNext;
-		}
-		this->pLast = tmp;
-		return *this;
+	bool operator!=(const TList<T>& other) const {
+		return !(*this == other);
 	}
-
 };
 
 

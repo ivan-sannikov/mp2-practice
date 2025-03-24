@@ -143,16 +143,8 @@ public:
             this->polinomslist.reset();
         }
     }
+    
     TPolinom(const TPolinom& other) {
-
-       /* other.polinomslist.reset();
-        TNode<TMonom>* tmp = other.polinomslist.GetFirst();
-        while (!other.polinomslist.isended()) {
-            this->polinomslist.InsertEnd(tmp->key);
-            tmp = tmp->pNext;
-            other.polinomslist.next();
-        }
-        */
         TRingHeadList<TMonom> l(other.polinomslist);
         this->polinomslist = l;
     }
@@ -166,9 +158,6 @@ public:
         TPolinom p2(other);
         p1.polinomslist.reset();
         p2.polinomslist.reset();
-     //   this->polinomslist.reset();
-       // other.polinomslist.reset();
-
         TNode<TMonom>* tmpThis = p1.polinomslist.GetFirst();
         TNode<TMonom>* tmpOther = p2.polinomslist.GetFirst();
 
@@ -209,6 +198,7 @@ public:
 
         return *this;
     }
+
 
     void DiffX() {
         TNode<TMonom>* tmp = this->polinomslist.GetFirst();
