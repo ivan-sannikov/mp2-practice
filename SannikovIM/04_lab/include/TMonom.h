@@ -1,75 +1,32 @@
 #pragma once
+
 #include <cstring>
 #include <iostream>
 #include <string>
 #include <sstream>
+
 using namespace std;
-class TMonom{
+
+class TMonom{ // TODO: разделить объ€вление и реализацию
 private:
-	string pMem;
-	int len;
-public:
-	TMonom(){}
-	TMonom(string pMem){
-	//	this->pMem = pMem;
-		this->len = strlen(pMem.c_str());
-		string newNum1 = "";
+	int degree;
+	double coeff;
 
-		for (int i = 0; i < len; i++) {
-			if (pMem[i] != ' ' && pMem[i] != '+') {
-				newNum1 += pMem[i];
-			}
-		}
-		this->pMem = newNum1;
-		this->len = strlen(this->pMem.c_str());
-		string newNum = "";
-		int i = 0;
-		while ((this->pMem[i] != 'x' && this->pMem[i] != 'X' && this->pMem[i] != 'y' && this->pMem[i] != 'Y' && this->pMem[i] != 'z' && this->pMem[i] != 'Z') && i < this->len) {
-			newNum += pMem[i];
-			i++;
-
-		}
-		if (newNum == "") {
-			newNum = "1";
-			this->pMem = "1" + this->pMem;
-			this->len = strlen(this->pMem.c_str());
-		}
-	}
-	TMonom(const TMonom& mon){
-		this->pMem = mon.pMem;
-		this->len = strlen(this->pMem.c_str());
-
-	}
-	bool operator==(TMonom& m) {
-		return this->GetConvolution() == m.GetConvolution();
-	}
-	bool operator!=(TMonom& m) {
-		return !(*this == m);
-	}
-	double GetValue(){
-		int i = 0;
-		string newNum = "";
-		while ((this->pMem[i] != 'x' && this->pMem[i] != 'X' && this->pMem[i] != 'y' && this->pMem[i] != 'Y' && this->pMem[i] != 'z' && this->pMem[i] != 'Z') && i<this->len) {
-			newNum += pMem[i];
-			i++;
-		
-		}
-		return stod(newNum);
-	}
-	double GetConvolution() {
+	double GetConvolution(const string& pMem) {
 		int i = 0;
 		string newNum = "";
 		char lastChar;
-		double xconf = 0, yconf = 0 , zconf = 0;
-		while ((pMem[i] != 'x' && pMem[i] != 'X' && pMem[i] != 'y' && pMem[i] != 'Y' && pMem[i] != 'z' && pMem[i] != 'Z') && i < this->len) {
+		double xconf = 0, yconf = 0, zconf = 0;
+		int len = strlen(pMem.c_str());
+		while ((pMem[i] != 'x' && pMem[i] != 'X' && pMem[i] != 'y' && pMem[i] != 'Y' && pMem[i] != 'z' && pMem[i] != 'Z') && i < len) {
 			i++;
 
 		}
-		if (i == this->len) return 0;
-		while(i < this->len) {
+		if (i == len) return 0;
+		while (i < len) {
 			if (pMem[i] == 'x' || pMem[i] == 'X' || pMem[i] == 'y' || pMem[i] == 'Y' || pMem[i] == 'z' || pMem[i] == 'Z') {
 				lastChar = pMem[i];
-				if (pMem[i+1] == 'x' || pMem[i+1] == 'X' || pMem[i+1] == 'y' || pMem[i+1] == 'Y' || pMem[i+1] == 'z' || pMem[i+1] == 'Z' || i+1 == this->len) {
+				if (pMem[i + 1] == 'x' || pMem[i + 1] == 'X' || pMem[i + 1] == 'y' || pMem[i + 1] == 'Y' || pMem[i + 1] == 'z' || pMem[i + 1] == 'Z' || i + 1 == len) {
 					switch (lastChar) {
 					case 'x':
 						xconf = 100;
@@ -102,52 +59,131 @@ public:
 			else if (pMem[i] == '^') {
 				if (pMem[i] != 'x' && pMem[i] != 'X' && pMem[i] != 'y' && pMem[i] != 'Y' && pMem[i] != 'z' && pMem[i] != 'Z') {
 					switch (lastChar) {
-						case 'x': 
-							xconf =100* (pMem[i + 1] - '0');
-							i++;
-							if(xconf == 0) xconf =100;
-							//cout<<xconf<<endl;
-							break;
-						case 'X':
-							xconf = 100 * (pMem[i + 1] - '0');
-							i++;
-							if(xconf == 0) xconf = 100;
-							break;
-						case 'y':
-							yconf = 10 * (pMem[i + 1] - '0');
-							i++;
-							if(yconf == 0) yconf =10;
-							break;
-						case 'Y':
-							yconf = 10 * (pMem[i + 1] - '0');
-							i++;
-							if(yconf == 0) yconf = 10;
-							break;
-						case 'z':
-							zconf =  pMem[i + 1] - '0';
-							i++;
-							if(zconf == 0) zconf =1;
-							break;
-						case 'Z':
-							zconf =  pMem[i + 1] - '0';
-							i++;
-							if(zconf == 0) zconf = 1;
-							break; 
+					case 'x':
+						xconf = 100 * (pMem[i + 1] - '0');
+						i++;
+						if (xconf == 0) xconf = 100;
+						//cout<<xconf<<endl;
+						break;
+					case 'X':
+						xconf = 100 * (pMem[i + 1] - '0');
+						i++;
+						if (xconf == 0) xconf = 100;
+						break;
+					case 'y':
+						yconf = 10 * (pMem[i + 1] - '0');
+						i++;
+						if (yconf == 0) yconf = 10;
+						break;
+					case 'Y':
+						yconf = 10 * (pMem[i + 1] - '0');
+						i++;
+						if (yconf == 0) yconf = 10;
+						break;
+					case 'z':
+						zconf = pMem[i + 1] - '0';
+						i++;
+						if (zconf == 0) zconf = 1;
+						break;
+					case 'Z':
+						zconf = pMem[i + 1] - '0';
+						i++;
+						if (zconf == 0) zconf = 1;
+						break;
 					}
 				}
 
 			}
-			
+
 			i++;
 		}
-		return xconf+yconf+zconf;
+		return xconf + yconf + zconf;
 	}
-	string GetMonom() {
-		stringstream str;
-		str << this->GetValue();
-		return str.str() + this->GetMonomConv();
+
+public:
+	TMonom(){}
+	TMonom(const string& pMem){
+		int len = strlen(pMem.c_str());
+		string newNum1 = "";
+
+		for (int i = 0; i < len; i++) {
+			if (pMem[i] != ' ' && pMem[i] != '+') {
+				newNum1 += pMem[i];
+			}
+		}
+		string pMem1 = newNum1;
+		len = strlen(pMem1.c_str());
+		string newNum = "";
+		int i = 0;
+		while ((pMem1[i] != 'x' && pMem1[i] != 'X' && pMem1[i] != 'y' && pMem1[i] != 'Y' && pMem1[i] != 'z' && pMem1[i] != 'Z') && i < len) {
+			newNum += pMem[i];
+			i++;
+		}
+		coeff = stod(newNum);
+		if (newNum == "") {
+			coeff = 1;
+		}
+		degree = GetConvolution(pMem1);
+
+		
 	}
-	string GetMonomConv() {
+	TMonom(const TMonom& mon){
+		this->coeff = mon.coeff;
+		this->degree = mon.degree;
+
+	}
+	TMonom(const double coeff, const int degree) {
+		this->coeff = coeff;
+		this->degree = degree;
+	}
+	bool operator==(const TMonom& m) {
+		return this->degree == m.degree;
+	}
+	bool operator!=(const TMonom& m) {
+		return !(*this == m);
+	}
+
+	bool operator>(const TMonom& m) {
+		if (m.degree == this->degree) return this->coeff > m.coeff;
+		return this->degree > m.degree;
+	}
+	bool operator<(const TMonom& m) {
+		if (m.degree == this->degree) return this->coeff < m.coeff;
+		return this->degree < m.degree;
+	}
+	bool operator>=(const TMonom& m) {
+		return !(*this < m);
+	}
+	bool operator<=(const TMonom& m) {
+		return !(*this > m);
+	}
+
+	TMonom operator+(const TMonom& m) {
+		if (this->degree != m.degree) throw "error";
+		TMonom res(this->coeff + m.coeff, this->degree);
+		return res;
+	}
+	TMonom operator-(const TMonom& m) {
+		if (this->degree != m.degree) throw "error";
+		TMonom res(this->coeff - m.coeff, this->degree);
+		return res;
+	}
+	TMonom operator*(const TMonom& m) {
+		if (((this->degree / 100) + (m.degree / 100) > 9) || ((degree / 10 % 10) + (degree / 10 % 10) > 9) || ((this->degree % 100 % 10) + (m.degree % 100 % 10) > 9)) throw "error";
+		TMonom res(this->coeff * m.coeff, this->degree + m.degree);
+	}
+	double operator()(double x, double y, double z) {
+		int x1 = degree / 100;
+		int y1 = degree / 10 % 10;
+		int z1 = degree % 100 % 10;
+		return this->coeff * pow(x1, x) * pow(y1, y) * pow(z1, z);
+	}
+
+
+
+	// TODO: >, < >=, <=, +, -, *, operator()(double x, double y, double z)
+	
+	/*string GetMonomConv() {
 		string x, y, z;
 		if ((int)this->GetConvolution() / 100 == 0) x = "";
 		else if ((int)this->GetConvolution() / 100 == 1) x = "x";
@@ -178,5 +214,5 @@ public:
 		else
 			z = "z^" + to_string((int)conv % 100 % 10);
 		return x + y + z;
-	}
+	}*/
 };

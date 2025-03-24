@@ -1,4 +1,5 @@
 #pragma once
+
 #include "list.h"
 
 template <typename T>
@@ -25,7 +26,7 @@ public:
 		TList<T>::DeleteFirst();
 		this->pHead->pNext = this->pFirst;
 	}
-	THeadList& operator=(const THeadList& other) {
+	const THeadList& operator=(const THeadList& other) {
 		TList<T>::operator=(other);
 		this->pHead = new TNode<T>();
 		this->pHead->pNext = this->pFirst;
