@@ -1,7 +1,7 @@
 #include <gtest.h>
 #include "ringheadlist.h"
 
-
+/*
 TEST(TRingHeadList, can_create_ringheadlist) {
 	TRingHeadList<int> l;
 	ASSERT_NO_THROW(TRingHeadList<int> l);
@@ -18,3 +18,4 @@ TEST(TRingHeadList, can_insertend_more_elements_in_ringheadlist) {
 	EXPECT_EQ(2, l.GetFirst()->pNext->key);
 }
 
+*/

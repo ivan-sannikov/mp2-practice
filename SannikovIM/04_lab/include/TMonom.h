@@ -63,7 +63,6 @@ private:
 						xconf = 100 * (pMem[i + 1] - '0');
 						i++;
 						if (xconf == 0) xconf = 100;
-						//cout<<xconf<<endl;
 						break;
 					case 'X':
 						xconf = 100 * (pMem[i + 1] - '0');
@@ -115,13 +114,16 @@ public:
 		len = strlen(pMem1.c_str());
 		string newNum = "";
 		int i = 0;
-		while ((pMem1[i] != 'x' && pMem1[i] != 'X' && pMem1[i] != 'y' && pMem1[i] != 'Y' && pMem1[i] != 'z' && pMem1[i] != 'Z') && i < len) {
-			newNum += pMem[i];
+ 		while ((pMem1[i] != 'x' && pMem1[i] != 'X' && pMem1[i] != 'y' && pMem1[i] != 'Y' && pMem1[i] != 'z' && pMem1[i] != 'Z') && i < len) {
+			newNum += pMem1[i];
 			i++;
 		}
-		coeff = stod(newNum);
+		
 		if (newNum == "") {
 			coeff = 1;
+		}
+		else {
+			coeff = stod(newNum);
 		}
 		degree = GetConvolution(pMem1);
 
@@ -133,6 +135,10 @@ public:
 
 	}
 	TMonom(const double coeff, const int degree) {
+		int x = degree / 100;
+		int y = degree / 10 % 10;
+		int z = degree % 100 % 10;
+		if (x < 0 || x > 9 || y < 0 || y > 9 || z < 0 || z > 9) throw "error";
 		this->coeff = coeff;
 		this->degree = degree;
 	}
@@ -178,7 +184,8 @@ public:
 		int z1 = degree % 100 % 10;
 		return this->coeff * pow(x1, x) * pow(y1, y) * pow(z1, z);
 	}
-
+	int GetDegree() const { return degree; }
+	double GetCoeff() const { return coeff; }
 
 
 	// TODO: >, < >=, <=, +, -, *, operator()(double x, double y, double z)

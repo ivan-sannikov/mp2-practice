@@ -18,12 +18,16 @@ protected:
 	TNode<T>* pPrev;
 	TNode<T>* pLast;
 	TNode<T>* pStop = nullptr;
-public:
-	TList() : pFirst(nullptr), pLast(this->pFirst) {}
-	TList(const TList& other) : pFirst(nullptr) {
-		if (other.pFirst == nullptr) {
-			return;
+private:
+	void clear() {
+		
+		while (this->pFirst != nullptr) { // TODO: clear()
+			TNode<T>* tmp = this->pFirst;
+			this->pFirst = this->pFirst->pNext;
+			delete tmp;
 		}
+	}
+	void copy(const TList& other) {
 		this->pFirst = new TNode<T>(other.pFirst->key); // TODO: copy()
 		TNode<T>* tmp = this->pFirst;
 		TNode<T>* curr = other.pFirst->pNext;
@@ -35,30 +39,23 @@ public:
 		this->pLast = tmp;
 		this->pLast->pNext = pStop;
 	}
-	~TList() {
-		while (this->pFirst != nullptr) { // TODO: clear()
-			TNode<T>* tmp = this->pFirst;
-			this->pFirst = this->pFirst->pNext;
-			delete tmp;
+public:
+	TList() : pFirst(nullptr), pLast(this->pFirst) {}
+	TList(const TList& other) : pFirst(nullptr) {
+		if (other.pFirst == nullptr) {
+			return;
 		}
+		copy(other);
+	}
+	~TList() {
+		clear();
 	}
 	const TList& operator=(const TList& other) {
 		if (this == &other) return *this;
-		while (this->pFirst != nullptr) {  // TODO: clear()
-			TNode<T>* tmp = this->pFirst;
-			this->pFirst = this->pFirst->pNext;
-			delete tmp;
-		}
+		if (this->pLast != nullptr) { this->pLast->pNext = nullptr; }
+		clear();
 		if (other.pFirst != nullptr) { // TODO: copy()
-			this->pFirst = new TNode<T>(other.pFirst->key);
-			TNode<T>* tmp = this->pFirst;
-			TNode<T>* curr = other.pFirst->pNext;
-			while (curr != nullptr) {
-				tmp->pNext = new TNode<T>(curr->key);
-				tmp = tmp->pNext;
-				curr = curr->pNext;
-			}
-			this->pLast = tmp;
+			copy(other);
 		}
 		else {
 			this->pFirst = nullptr;
@@ -204,7 +201,6 @@ public:
 		return (pCurr == pStop);
 	}
 	bool operator==(const TList<T>& other) const {
-		//if (this->pLast != other.pLast) return 0;
 		TNode<T>* tmp = this->pFirst;
 		TNode<T>* oth = other.pFirst;
 		while (tmp != this->pStop && oth != other.pStop) {
@@ -212,7 +208,7 @@ public:
 			tmp = tmp->pNext;
 			oth = oth->pNext;
 		}
-		if (oth == nullptr && tmp == nullptr) return 1;
+		if (oth == other.pStop && tmp == this->pStop) return 1;
 		return 0;
 	}
 	bool operator!=(const TList<T>& other) const {

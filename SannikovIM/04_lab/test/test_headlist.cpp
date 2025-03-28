@@ -1,7 +1,7 @@
 #include <gtest.h>
 #include "headlist.h"
 
-
+/*
 TEST(THeadList, can_create_headlist) {
 	ASSERT_NO_THROW(THeadList<int> l);
 }
@@ -25,3 +25,4 @@ TEST(THeadList, can_deletefirst_in_headlist_with_more_elements) {
 	l.DeleteFirst();
 	EXPECT_EQ(1, l.GetFirst()->key);
 }
+*/

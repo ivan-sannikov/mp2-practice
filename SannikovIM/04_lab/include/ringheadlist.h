@@ -17,12 +17,19 @@ public:
 		TList<T>::InsertEnd(key);
 		this->pLast->pNext = this->pStop;
 	}
-
+	~TRingHeadList() {
+		// Разрываем кольцо перед удалением pHead
+		if (this->pLast != nullptr) {
+			this->pLast->pNext = nullptr;  // Иначе delete в ~TList() пойдёт по кольцу
+		}
+		// pHead удалится в ~THeadList()
+	}
 	virtual void DeleteLast() {
 		TList<T>::DeleteLast();
 		this->pLast->pNext = this->pStop;
 	}
 	const TRingHeadList& operator=(const TRingHeadList& other) {
+		this->pStop = nullptr;
 		THeadList<T>::operator=(other);
 		this->pStop = this->pHead;
 		this->pLast->pNext = this->pStop;

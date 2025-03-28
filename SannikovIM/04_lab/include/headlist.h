@@ -17,6 +17,7 @@ public:
 	}
 	~THeadList() {
 		delete this->pHead;
+		
 	}
 	virtual void InsertFirst(T key) {
 		TList<T>::InsertFirst(key);
@@ -27,6 +28,8 @@ public:
 		this->pHead->pNext = this->pFirst;
 	}
 	const THeadList& operator=(const THeadList& other) {
+		//delete pHead;
+		this->pHead = nullptr;
 		TList<T>::operator=(other);
 		this->pHead = new TNode<T>();
 		this->pHead->pNext = this->pFirst;
