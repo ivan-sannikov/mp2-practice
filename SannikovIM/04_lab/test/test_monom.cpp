@@ -1,7 +1,7 @@
 #include <gtest.h>
 #include "TMonom.h"
 
-/*
+
 TEST(TMonom, can_create_monom) {
 	ASSERT_NO_THROW(TMonom("-3xyz"));
 }
@@ -35,4 +35,3 @@ TEST(TMonom, getconvolution_without_degree) {
 	double h = p.GetDegree();
 	EXPECT_EQ(111, h);
 }
-*/

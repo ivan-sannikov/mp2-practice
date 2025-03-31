@@ -12,6 +12,38 @@ class TPolinom{ // TODO: разделить объ€вление и реализацию
 private: 
     TRingHeadList<TMonom> polinomslist;
     string id_pol;
+
+    string GetPolinom(const TPolinom& p){
+        TPolinom pol = p;
+        pol.polinomslist.reset();
+        TNode<TMonom>* tmp = this->polinomslist.GetFirst();
+        string id_pol1 = "";
+        while (!pol.polinomslist.isended()) {
+            int sv = tmp->key.GetDegree();
+            int x = sv / 100;
+            int y = sv / 10 % 10;
+            int z = sv % 100 % 10;
+            double value = tmp->key.GetCoeff();
+            string s;
+            stringstream str;
+            str << value;
+            s = str.str() + compileMonom(x, y, z);
+            if (id_pol1 != "") {
+                if (value > 0) {
+                    id_pol1 += "+" + s;
+                }
+            }
+            else {
+                id_pol1 += s;
+            }
+
+
+            tmp = tmp->pNext;
+            pol.polinomslist.next();
+        }
+        return id_pol1;
+    }
+
     void CheckPolinoms(string monom) {
         TMonom t(monom);
         TNode<TMonom>* tmp = this->polinomslist.GetFirst();
@@ -186,7 +218,7 @@ public:
                 stringstream str;
                 str << value;
                 s = str.str() + compileMonom(x, y, z);
-                if (list.GetFirst() != nullptr) {
+                if (id_pol1 != "") {
                     if (value > 0) {
                         id_pol1 += "+" + s;
                     }
@@ -235,7 +267,7 @@ public:
                 stringstream str;
                 str << value;
                 s = str.str() + compileMonom(x, y, z);
-                if (list.GetFirst() != nullptr) {
+                if (id_pol1 != "") {
                     if (value > 0) {
                         id_pol1 += "+" + s;
                     }
@@ -283,7 +315,7 @@ public:
                 stringstream str;
                 str << value;
                 s = str.str() + compileMonom(x, y, z);
-                if (list.GetFirst() != nullptr) {
+                if (id_pol1 != "") {
                     if (value > 0) {
                         id_pol1 += "+" + s;
                     }
@@ -324,6 +356,7 @@ public:
             this->polinomslist.InsertEnd(mon);
         }
         SortPolinoms();
+        this->id_pol = GetPolinom(*this);
         return *this;
     }
 
@@ -346,6 +379,7 @@ public:
             p.polinomslist.next();
         }
         SortPolinoms();
+        this->id_pol = GetPolinom(*this);
         return *this;
     }
 
@@ -362,6 +396,7 @@ public:
             if (t.GetCoeff() != 0) { this->polinomslist.InsertEnd(t); }
         }
         SortPolinoms();
+        this->id_pol = GetPolinom(*this);
         return *this;
     }
 
@@ -394,74 +429,13 @@ public:
             list.next();
         }
         SortPolinoms();
+        this->id_pol = GetPolinom(*this);
         return *this;
 
     }
-    TPolinom operator*(const TMonom& monom) {
-        TNode<TMonom>* tmp = this->polinomslist.GetFirst();
-        TRingHeadList<TMonom> list;
-        this->polinomslist.reset();
-        while (!this->polinomslist.isended()) {
-            double b = tmp->key.GetCoeff() * monom.GetCoeff();
-            double c = tmp->key.GetDegree() + monom.GetDegree();
-            TMonom t(b,c);
-            list.InsertFirst(t);
-            tmp = tmp->pNext;
-            this->polinomslist.next();
-        }
-        this->polinomslist.reset();
-        while (!this->polinomslist.isended()) {
-            this->polinomslist.DeleteFirst();
-            this->polinomslist.reset();
-        }
-        TNode<TMonom>* tmp1 = list.GetFirst();
-        list.reset();
-        while (!list.isended()) {
-            CheckPolinoms(tmp1->key.GetCoeff(), tmp1->key.GetDegree());
-            tmp1 = tmp1->pNext;
-            list.next();
-        }
-        SortPolinoms();
-        return *this;
-
-    }
-
-    TPolinom operator*(const TPolinom& pol) {
-        TNode<TMonom>* tmp = this->polinomslist.GetFirst();
-        TNode<TMonom>* tmp1 = pol.polinomslist.GetFirst();
-        TPolinom p2 = pol;
-        p2.polinomslist.reset();
-        TPolinom p1;
-        TPolinom p;
-        p = *this;
-        p1 = p * tmp1->key;
-        tmp1 = tmp1->pNext;
-        p2.polinomslist.next();
-        while (!p2.polinomslist.isended()) {
-            p = *this;
-            p = p * tmp1->key;
-            p1 =p1+p;
-            tmp1 = tmp1->pNext;
-            p2.polinomslist.next();
-        }
-        *this = p1;
-        SortPolinoms();
-        return *this;
-    }
-
-    double operator()(double x, double y, double z) { // TODO: x, y, z
-        TList<double> num;
-        TNode<TMonom>* tmp = this->polinomslist.GetFirst();
-        double res = 0;
-        this->polinomslist.reset();
-        while (!this->polinomslist.isended()) {
-      
-            res += tmp->key.operator()(x,y,z);
-            tmp = tmp->pNext;
-            this->polinomslist.next();
-        }
-        return res;
-    }
+    TPolinom operator*(const TMonom& monom);
+    TPolinom operator*(const TPolinom& pol);
+    double operator()(double x, double y, double z);
     /*
     friend ostream& operator<<(ostream& ostr, const TPolinom& pol)
     {

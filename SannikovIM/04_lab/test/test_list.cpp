@@ -1,7 +1,7 @@
 #include <gtest.h>
 #include "list.h"
 
-/*
+
 
 TEST(TList, can_create_list) {
 	ASSERT_NO_THROW(TList<int> l);
@@ -116,4 +116,3 @@ TEST(TList, can_copy_list) {
 	TList<int> l1(l);
 	EXPECT_EQ(l, l1);
 }
-*/
