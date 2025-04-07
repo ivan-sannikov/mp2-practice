@@ -179,14 +179,14 @@ int main() {
 			  break;
 		case 6:
 		{
-			double* operands = new double[3];
+			double x, y, z;
 			cout << "X = ";
-			cin >> operands[0];
+			cin >> x;
 			cout << "Y = ";
-			cin >> operands[1];
+			cin >> y;
 			cout << "Z = ";
-			cin >> operands[2];
-			cout << "Result: " << polinom1(operands) << endl;
+			cin >> z;
+			cout << "Result: " << polinom1(x,y,z) << endl;
 		}
 			break;
 		case 7:

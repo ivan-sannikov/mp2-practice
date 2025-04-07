@@ -90,6 +90,8 @@ double TMonom::GetConvolution(const string& pMem) {
 	return xconf + yconf + zconf;
 }
 
+TMonom::TMonom(){}
+
 TMonom::TMonom(const string& pMem) {
 	int len = strlen(pMem.c_str());
 	string newNum1 = "";
@@ -171,7 +173,7 @@ double TMonom::operator()(double x, double y, double z) {
 	int x1 = degree / 100;
 	int y1 = degree / 10 % 10;
 	int z1 = degree % 100 % 10;
-	return this->coeff * pow(x1, x) * pow(y1, y) * pow(z1, z);
+	return this->coeff * pow(x,x1) * pow(y,y1) * pow(z,z1);
 }
 int TMonom::GetDegree() const { return degree; }
 double TMonom::GetCoeff() const { return coeff; }

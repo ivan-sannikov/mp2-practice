@@ -14,6 +14,7 @@ private:
 	double GetConvolution(const string& pMem);
 
 public:
+	TMonom();
 	TMonom(const string& pMem);
 	TMonom(const TMonom& mon);
 	TMonom(const double coeff, const int degree);
