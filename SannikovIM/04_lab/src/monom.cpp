@@ -3,7 +3,7 @@
 using namespace std;
 
 
-double TMonom::GetConvolution(const string& pMem) {
+int TMonom::GetConvolution(const string& pMem) {
 	int i = 0;
 	string newNum = "";
 	char lastChar;
@@ -133,25 +133,25 @@ TMonom::TMonom(const double coeff, const int degree) {
 	this->coeff = coeff;
 	this->degree = degree;
 }
-bool TMonom::operator==(const TMonom& m) {
-	return this->degree == m.degree;
+bool TMonom::operator==(const TMonom& m) const {
+	return (this->degree == m.degree);
 }
-bool TMonom::operator!=(const TMonom& m) {
+bool TMonom::operator!=(const TMonom& m) const {
 	return !(*this == m);
 }
 
-bool TMonom::operator>(const TMonom& m) {
+bool TMonom::operator>(const TMonom& m) const {
 	if (m.degree == this->degree) return this->coeff > m.coeff;
 	return this->degree > m.degree;
 }
-bool TMonom::operator<(const TMonom& m) {
+bool TMonom::operator<(const TMonom& m) const {
 	if (m.degree == this->degree) return this->coeff < m.coeff;
 	return this->degree < m.degree;
 }
-bool TMonom::operator>=(const TMonom& m) {
+bool TMonom::operator>=(const TMonom& m) const {
 	return !(*this < m);
 }
-bool TMonom::operator<=(const TMonom& m) {
+bool TMonom::operator<=(const TMonom& m) const {
 	return !(*this > m);
 }
 
@@ -169,7 +169,7 @@ TMonom TMonom::operator*(const TMonom& m) {
 	if (((this->degree / 100) + (m.degree / 100) > 9) || ((degree / 10 % 10) + (degree / 10 % 10) > 9) || ((this->degree % 100 % 10) + (m.degree % 100 % 10) > 9)) throw "error";
 	TMonom res(this->coeff * m.coeff, this->degree + m.degree);
 }
-double TMonom::operator()(double x, double y, double z) {
+double TMonom::operator()(double x, double y, double z) const {
 	int x1 = degree / 100;
 	int y1 = degree / 10 % 10;
 	int z1 = degree % 100 % 10;

@@ -1,7 +1,7 @@
 #include <gtest.h>
 #include "TPolinom.h"
 
-/*
+
 TEST(TPolinom, can_create_polinom) {
 	ASSERT_NO_THROW(TPolinom p1("1z+2x"));
 }
@@ -15,20 +15,11 @@ TEST(TPolinom, copied_polinom_is_equal_to_source_one) {
 	TPolinom p2(p);
 	EXPECT_EQ(p2, p1);
 }
-TEST(TPolinom, can_create_polinom_as_tringheadlist) {
-	TRingHeadList<TMonom> s;
-	TMonom m("0z^-1");
-	TMonom m1("2z");
-	TMonom m2("1y");
-	s.InsertFirst(m1);
-	s.InsertFirst(m2);
-	//ASSERT_NO_THROW(TPolinom p(s));
-}
 TEST(TPolinom, can_compare_polinom) {
 	TPolinom p("1z+2x");
 	TPolinom p1("1z+2x");
 	EXPECT_EQ(p, p1);
-}*/
+}
 TEST(TPolinom, can_equate_polinoms) {
 	TPolinom p("1z+2x");
 	TPolinom p1("2z+2x");
