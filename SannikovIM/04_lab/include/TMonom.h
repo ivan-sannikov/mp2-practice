@@ -30,8 +30,6 @@ public:
 	TMonom operator-(const TMonom& m);
 	TMonom operator*(const TMonom& m);
 
-	//TMonom operator+(const double m);
-	//TMonom operator-(const double m);
 	TMonom operator*(const double m);
 
 	double operator()(double x, double y, double z) const;

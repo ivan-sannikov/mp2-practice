@@ -147,20 +147,20 @@ int main() {
 			cin >> a;
 			switch (a) {
 			case 1: {
-				polinom1.DiffX();
-				cout << polinom1 << endl << endl;
+				TPolinom p = polinom1.DiffX();
+				cout << p<< endl << endl;
 				break;
 			}
 			case 2:
 			{
-				polinom1.DiffY();
-				cout << polinom1 << endl << endl;
+				TPolinom p =  polinom1.DiffY();
+				cout << p << endl << endl;
 				break;
 			}
 			case 3:
 			{
-				polinom1.DiffZ();
-				cout << polinom1 << endl << endl;
+				TPolinom p = polinom1.DiffZ();
+				cout << p << endl << endl;
 				break;
 			}
 			default:

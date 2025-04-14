@@ -8,15 +8,12 @@
 #include <cmath>
 
 using namespace std;
-class TPolinom{ // TODO: разделить объ€вление и реализацию
+class TPolinom{
 private: 
-    TRingHeadList<TMonom> monoms; // TODO: monoms
+    TRingHeadList<TMonom> monoms;
     string id_pol;
 
-    string GetPolinom(const TPolinom& p);
-    /*void CheckPolinoms(const string& monom); // TODO: remove
-    void CheckPolinoms(double coeff, int degree); // TODO: remove
-    void SortPolinoms(); // TODO: remove*/
+    void GetPolinom();
     void InsertInList(TMonom& m1);
     string compileMonom(int x, int y, int z);
     

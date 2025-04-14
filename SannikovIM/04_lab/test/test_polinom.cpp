@@ -29,7 +29,8 @@ TEST(TPolinom, can_equate_polinoms) {
 TEST(TPolinom, can_sum_polinom_and_scalar){
     TPolinom p("1z+2x");
     TPolinom p1("2x+1z+1");
-    TPolinom p2 = p + 1;
+	TPolinom p2;
+	p2 = p + 1;
     EXPECT_EQ(p1, p2);
 }
 TEST(TPolinom, can_sum_polinom_and_scalar_with_minus){
@@ -60,6 +61,15 @@ TEST(TPolinom, can_sum_polinoms) {
 	p2 = p2 + p1;
 	EXPECT_EQ(p2, p);
 }
+
+TEST(TPolinom, can_sum_big_polinoms) {
+	TPolinom p("5x^2y^5z^2+3x^3y^2z^3");
+	TPolinom p1("2xyz+1z+3x^2y^2z^2");
+	TPolinom p2("3x^3y^2z^3+5x^2y^5z^2+3x^2y^2z^2+2xyz+1z");
+	p = p + p1;
+	EXPECT_EQ(p2, p);
+}
+
 TEST(TPolinom, can_sub_polinoms) {
 	TPolinom p("-1x+1z");
 	TPolinom p1("1z+3x");
@@ -67,6 +77,7 @@ TEST(TPolinom, can_sub_polinoms) {
 	p2 = p2 - p1;
 	EXPECT_EQ(p2, p);
 }
+
 TEST(TPolinom, can_multiply_polinoms) {
 	TPolinom p("1z+2x");
 	TPolinom p1("1z+3x");
@@ -85,7 +96,7 @@ TEST(TPolinom, can_sub_polinom_and_monom) {
 	TPolinom p("2x+1z");
 	TMonom p1("1z");
 	TPolinom p2("2z+2x");
-	p = p2 - p1;
+	p2 = p2 - p1;
 	EXPECT_EQ(p2, p);
 }
 TEST(TPolinom, can_multiply_polinom_and_monom) {
