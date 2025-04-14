@@ -14,9 +14,10 @@ private:
     string id_pol;
 
     string GetPolinom(const TPolinom& p);
-    void CheckPolinoms(const string& monom); // TODO: remove
+    /*void CheckPolinoms(const string& monom); // TODO: remove
     void CheckPolinoms(double coeff, int degree); // TODO: remove
-    void SortPolinoms(); // TODO: remove
+    void SortPolinoms(); // TODO: remove*/
+    void InsertInList(TMonom& m1);
     string compileMonom(int x, int y, int z);
     
 	

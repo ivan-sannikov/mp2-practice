@@ -169,6 +169,10 @@ TMonom TMonom::operator*(const TMonom& m) {
 	if (((this->degree / 100) + (m.degree / 100) > 9) || ((degree / 10 % 10) + (degree / 10 % 10) > 9) || ((this->degree % 100 % 10) + (m.degree % 100 % 10) > 9)) throw "error";
 	TMonom res(this->coeff * m.coeff, this->degree + m.degree);
 }
+TMonom TMonom::operator*(const double scalar){
+    TMonom m1(this->GetCoeff() * scalar, this->GetDegree());
+    return m1;
+}
 double TMonom::operator()(double x, double y, double z) const {
 	int x1 = degree / 100;
 	int y1 = degree / 10 % 10;

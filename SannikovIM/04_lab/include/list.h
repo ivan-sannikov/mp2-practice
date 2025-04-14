@@ -73,6 +73,7 @@ public:
 			this->pPrev = this->pCurr;
 			this->pCurr = this->pCurr->pNext;
 		}
+        if(pCurr == pStop) pCurr = nullptr;
 		return pCurr;
 	}
 	virtual void InsertEnd(T key) { 
