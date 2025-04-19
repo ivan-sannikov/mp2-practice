@@ -35,3 +35,14 @@ TEST(TMonom, getconvolution_without_degree) {
 	double h = p.GetDegree();
 	EXPECT_EQ(111, h);
 }
+TEST(TMonom, getcoeff_simple) {
+	TMonom m("3xyz");
+	EXPECT_EQ(3, m.GetCoeff());
+}
+TEST(TMonom, getcoeff_minus_simple) {
+	TMonom m("-3xyz");
+	EXPECT_EQ(-3, m.GetCoeff());
+}
+TEST(TMonom, sum_simple_monoms) {
+	TMonom m()
+}
