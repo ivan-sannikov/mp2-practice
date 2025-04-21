@@ -36,12 +36,22 @@ int main() {
 		switch (n) {
 		case 1:
 			cout << "Choose:" << endl;
-			cout << "1) + Monom" << endl;
-			cout << "2) + Polinom" << endl;
-			cout << "3) Exit" << endl;
+			cout << "1) + Scalar" << endl;
+			cout << "2) + Monom" << endl;
+			cout << "3) + Polinom" << endl;
+			cout << "4) Exit" << endl;
 			cin >> a;
 			switch (a) {
 			case 1:
+			{
+				cout << "Scalar:\n" << endl;
+				double x;
+				cin >> x;
+				polinom1 = polinom1 + x;
+				cout << polinom1 << endl << endl;
+				break;
+			}
+			case 2:
 			{
 				cout << "Monom:\n" << endl;
 				string d;
@@ -51,7 +61,7 @@ int main() {
 				cout << polinom1 << endl << endl;
 				break;
 			}
-			case 2:
+			case 3:
 			{
 				cout << "Polinom:\n" << endl;
 				cin >> pol;
@@ -68,12 +78,22 @@ int main() {
 
 		case 2:
 			cout << "Choose:" << endl;
-			cout << "1) - Monom" << endl;
-			cout << "2) - Polinom" << endl;
-			cout << "3) Exit" << endl;
+			cout << "1) - Scalar" << endl;
+			cout << "2) - Monom" << endl;
+			cout << "3) - Polinom" << endl;
+			cout << "4) Exit" << endl;
 			cin >> a;
 			switch (a) {
 			case 1:
+			{
+				cout << "Scalar:\n" << endl;
+				double x;
+				cin >> x;
+				polinom1 = polinom1 - x;
+				cout << polinom1 << endl << endl;
+				break;
+			}
+			case 2:
 			{
 				cout << "Monom:\n" << endl;
 				string d;
@@ -83,7 +103,7 @@ int main() {
 				cout << polinom1 << endl << endl;
 				break;
 			}
-			case 2:
+			case 3:
 			{
 				cout << "Polinom:\n" << endl;
 				cin >> pol;

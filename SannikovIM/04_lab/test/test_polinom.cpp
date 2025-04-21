@@ -6,18 +6,18 @@ TEST(TPolinom, can_create_polinom) {
 	ASSERT_NO_THROW(TPolinom p1("1z+2x"));
 }
 TEST(TPolinom, can_create_copy_polinom) {
-	TPolinom p("1z+2x");
+	TPolinom p("z+2x");
 	ASSERT_NO_THROW(TPolinom p1(p));
  }
 TEST(TPolinom, copied_polinom_is_equal_to_source_one) {
-	TPolinom p("1z+2x");
+	TPolinom p("z+2x");
 	TPolinom p1(p);
 	TPolinom p2(p);
 	EXPECT_EQ(p2, p1);
 }
 TEST(TPolinom, can_compare_polinom) {
 	TPolinom p("1z+2x");
-	TPolinom p1("1z+2x");
+	TPolinom p1("z+2x");
 	EXPECT_EQ(p, p1);
 }
 TEST(TPolinom, can_equate_polinoms) {
@@ -64,8 +64,8 @@ TEST(TPolinom, can_sum_polinoms) {
 
 TEST(TPolinom, can_sum_big_polinoms) {
 	TPolinom p("5x^2y^5z^2+3x^3y^2z^3");
-	TPolinom p1("2xyz+1z+3x^2y^2z^2");
-	TPolinom p2("3x^3y^2z^3+5x^2y^5z^2+3x^2y^2z^2+2xyz+1z");
+	TPolinom p1("2xyz+z+3x^2y^2z^2");
+	TPolinom p2("3x^3y^2z^3+5x^2y^5z^2+3x^2y^2z^2+2xyz+z");
 	p = p + p1;
 	EXPECT_EQ(p2, p);
 }
@@ -149,3 +149,46 @@ TEST(TPolinom, can_diff_z_polinom) {
     EXPECT_EQ(p2, p3);
 }
 
+TEST(TPolinom, can_multiply_form)
+{
+	TMonom m1("-z");
+	TPolinom p1("1-x");
+	TPolinom p2("x+1");
+	TPolinom p3("-x^2+1");
+	TPolinom p4 = p1 * p2;
+	bool a = p4 == p3;
+	EXPECT_EQ(p3, p1 * p2);
+}
+
+TEST(TPolinom, can_multiply_form1)
+{
+	TPolinom p1("1-x");
+	TPolinom p2("x+1+x^2");
+	TPolinom p3("-x^3+1");
+	EXPECT_EQ(p3, p1 * p2);
+}
+
+TEST(TPolinom, can_sum_form)
+{
+	TPolinom p1("1-x");
+	TPolinom p2("x+1");
+	TPolinom p3("2");
+	TPolinom p4 = p1 + p2;
+	EXPECT_EQ(p3, p1 * p2);
+}
+
+TEST(TPolinom, can_sub_form)
+{
+	TPolinom p1("1-x");
+	TPolinom p2("x+1");
+	TPolinom p3("-2x");
+	EXPECT_EQ(p3, p1 * p2);
+}
+
+TEST(TPolinom, can_multiply_form2)
+{
+	TPolinom p1("5xyz-2zy");
+	TPolinom p2("-1+4z-5yx^2");
+	TPolinom p3("20xyz^2-5xyz+10zyx^2-25xy^2z+2zy-8zy^2");
+	EXPECT_EQ(p3, p1 * p2);
+}

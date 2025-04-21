@@ -38,6 +38,7 @@ void TPolinom::GetPolinom() {
 
 void TPolinom::InsertInList(TMonom& m1){
     TNode<TMonom>* searchDegree = this->monoms.Search(m1);
+    if (m1.GetCoeff() == 0) return;
     if(searchDegree == nullptr){
         this->monoms.reset();
         int degr = 0;
@@ -128,6 +129,7 @@ void TPolinom::InsertInList(TMonom& m1){
         }
         TMonom m1(monom);
         InsertInList(m1);
+        GetPolinom();
     }
     TPolinom::TPolinom(const TPolinom& other) {
         this->id_pol = other.id_pol;
@@ -271,8 +273,14 @@ TPolinom TPolinom::operator+(const TPolinom& pol) {
         p1.InsertInList(p.monoms.getcurr()->key);
         p.monoms.next();
     }
-    p1.GetPolinom(); 
-    return p1; 
+    p1.monoms.reset();
+    TPolinom p2;
+    while (!p1.monoms.isended()) {
+        p2.InsertInList(p1.monoms.getcurr()->key);
+        p1.monoms.next();
+    }
+    p2.GetPolinom(); 
+    return p2; 
 }
 TPolinom TPolinom::operator-(const double scalar) {
     TMonom m1(scalar,0);

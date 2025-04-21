@@ -22,17 +22,17 @@ TEST(TMonom, getvalue_double) {
 }
 TEST(TMonom, getconvolution_double) {
 	TMonom p("-3.5x^2");
-	double h = p.GetDegree();
+	int h = p.GetDegree();
 	EXPECT_EQ(200, h);
 }
 TEST(TMonom, getconvolution_more) {
 	TMonom p("-3.5x^2y^6z^7");
-	double h = p.GetDegree();
+	int h = p.GetDegree();
 	EXPECT_EQ(267, h);
 }
 TEST(TMonom, getconvolution_without_degree) {
 	TMonom p("-3.5xyz");
-	double h = p.GetDegree();
+	int h = p.GetDegree();
 	EXPECT_EQ(111, h);
 }
 TEST(TMonom, getcoeff_simple) {

@@ -113,6 +113,8 @@ TMonom::TMonom(const string& pMem) {
 	if (newNum == "") {
 		coeff = 1;
 	}
+	else if (newNum == "-")
+		coeff = -1;
 	else {
 		coeff = stod(newNum);
 	}
