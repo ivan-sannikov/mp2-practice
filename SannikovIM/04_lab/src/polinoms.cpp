@@ -43,7 +43,7 @@ void TPolinom::InsertInList(TMonom& m1){
         int degr = 0;
         while(!this->monoms.isended()){
             degr = this->monoms.getcurr()->key.GetDegree();
-            if(m1.GetDegree() > degr && m1.GetDegree()<this->monoms.getcurr()->pNext->key.GetDegree()){
+            if(m1.GetDegree() < degr && m1.GetDegree()>this->monoms.getcurr()->pNext->key.GetDegree()){
                 this->monoms.InsertAfter(this->monoms.getcurr()->key, m1);
                 return;
             }
@@ -323,19 +323,26 @@ TPolinom TPolinom::operator*(const TPolinom& pol) {
     TPolinom p2(pol);
     p2.monoms.reset();
 
-    TPolinom p1;
+    TPolinom p(*this);
+    p.monoms.reset();
+    TPolinom p1(p * p2.monoms.getcurr()->key);
+    p2.monoms.next();
     while (!p2.monoms.isended()) {
         TPolinom p(*this);
         p.monoms.reset();
 
         p = p * p2.monoms.getcurr()->key;
         p1 = p1 + p;
-        p1 = p;
         p2.monoms.next();
     }
-
-    p1.GetPolinom();
-    return p1;
+    TPolinom p3;
+    p1.monoms.reset();
+    while (!p1.monoms.isended()) {
+        p3.InsertInList(p1.monoms.getcurr()->key);
+        p1.monoms.next();
+    }
+    p3.GetPolinom();
+    return p3;
 }
 
 double TPolinom::operator()(double x, double y, double z) const {

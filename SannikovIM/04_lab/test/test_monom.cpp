@@ -44,5 +44,83 @@ TEST(TMonom, getcoeff_minus_simple) {
 	EXPECT_EQ(-3, m.GetCoeff());
 }
 TEST(TMonom, sum_simple_monoms) {
-	TMonom m()
+	TMonom m("3xyz");
+	TMonom m1("5xyz");
+	TMonom m2("8xyz");
+	EXPECT_EQ(m2, m + m1);
 }
+TEST(TMonom, sub_simple_monoms) {
+	TMonom m("3xyz");
+	TMonom m1("5xyz");
+	TMonom m2("2xyz");
+	EXPECT_EQ(m2, m1-m);
+}
+TEST(TMonom, sum_big_monoms) {
+	TMonom m("3x^2y^5z^7");
+	TMonom m1("5x^2y^5z^7");
+	TMonom m2("8x^2y^5z^7");
+	EXPECT_EQ(m2, m + m1);
+}
+TEST(TMonom, sub_big_monoms) {
+	TMonom m("3x^2y^5z^7");
+	TMonom m1("5x^2y^5z^7");
+	TMonom m2("2x^2y^5z^7");
+	EXPECT_EQ(m2, m1-m);
+}
+TEST(TMonom, mul_simple_monoms) {
+	TMonom m("3xyz");
+	TMonom m1("5xyz");
+	TMonom m2("15x^2y^2z^2");
+	EXPECT_EQ(m2, m1 * m);
+}
+TEST(TMonom, mul_big_monoms) {
+	TMonom m("3x^2y^2z^4");
+	TMonom m1("5x^2y^3z^4");
+	TMonom m2("15x^4y^5z^8");
+	EXPECT_EQ(m2, m1*m);
+}
+TEST(TMonom, mul_simple_monoms_and_scalar) {
+	TMonom m("3xyz");
+	TMonom m2("15xyz");
+	EXPECT_EQ(m2, m*5);
+}
+TEST(TMonom, mul_big_monoms_and_scalar) {
+	TMonom m("3x^2y^2z^4");
+	TMonom m2("15x^2y^2z^4");
+	EXPECT_EQ(m2, m*5);
+}
+TEST(TMonom, more_monoms) {
+	TMonom m("3xyz");
+	TMonom m1("5xyz");
+	EXPECT_EQ(true, m1>m);
+}
+TEST(TMonom, less_monoms) {
+	TMonom m("3xyz");
+	TMonom m1("5xyz");
+	EXPECT_EQ(true, m < m1);
+}
+TEST(TMonom, more_equals_monoms) {
+	TMonom m("3xyz");
+	TMonom m1("5xyz");
+	EXPECT_EQ(true, m1 >= m);
+}
+TEST(TMonom, less_equals_monoms) {
+	TMonom m("3xyz");
+	TMonom m1("5xyz");
+	EXPECT_EQ(true, m <= m1);
+}
+TEST(TMonom, less_equals_monoms_2) {
+	TMonom m("3xyz");
+	TMonom m1("3xyz");
+	EXPECT_EQ(true, m1 <= m);
+}
+TEST(TMonom, more_equals_monoms_2) {
+	TMonom m("3xyz");
+	TMonom m1("3xyz");
+	EXPECT_EQ(true, m1 >= m);
+}
+TEST(TMonom, monoms_nums) {
+	TMonom m("3x^2y^3z^2");
+	EXPECT_EQ(216, m(1,2,3));
+}
+
