@@ -14,7 +14,7 @@ private:
     string id_pol;
 
     void GetPolinom();
-    void InsertInList(TMonom& m1);
+    void InsertInList(const TMonom& m1);
     string compileMonom(int x, int y, int z);
     
 	

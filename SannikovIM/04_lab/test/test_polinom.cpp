@@ -155,8 +155,6 @@ TEST(TPolinom, can_multiply_form)
 	TPolinom p1("1-x");
 	TPolinom p2("x+1");
 	TPolinom p3("-x^2+1");
-	TPolinom p4 = p1 * p2;
-	bool a = p4 == p3;
 	EXPECT_EQ(p3, p1 * p2);
 }
 
@@ -173,8 +171,7 @@ TEST(TPolinom, can_sum_form)
 	TPolinom p1("1-x");
 	TPolinom p2("x+1");
 	TPolinom p3("2");
-	TPolinom p4 = p1 + p2;
-	EXPECT_EQ(p3, p1 * p2);
+	EXPECT_EQ(p3, p1 + p2);
 }
 
 TEST(TPolinom, can_sub_form)
@@ -182,13 +179,13 @@ TEST(TPolinom, can_sub_form)
 	TPolinom p1("1-x");
 	TPolinom p2("x+1");
 	TPolinom p3("-2x");
-	EXPECT_EQ(p3, p1 * p2);
+	EXPECT_EQ(p3, p1 - p2);
 }
 
 TEST(TPolinom, can_multiply_form2)
 {
 	TPolinom p1("5xyz-2zy");
-	TPolinom p2("-1+4z-5yx^2");
-	TPolinom p3("20xyz^2-5xyz+10zyx^2-25xy^2z+2zy-8zy^2");
+	TPolinom p2("-1+4z-5x^2y");
+	TPolinom p3("10x^2y^2z-25x^3y^2z+20xyz^2-5xyz-8yz^2+2yz");
 	EXPECT_EQ(p3, p1 * p2);
 }

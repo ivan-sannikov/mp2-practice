@@ -36,12 +36,12 @@ void TPolinom::GetPolinom() {
 
 
 
-void TPolinom::InsertInList(TMonom& m1){
+void TPolinom::InsertInList(const TMonom& m1){
     TNode<TMonom>* searchDegree = this->monoms.Search(m1);
     if (m1.GetCoeff() == 0) return;
     if(searchDegree == nullptr){
         this->monoms.reset();
-        int degr = 0;
+        int degr = -1;
         while(!this->monoms.isended()){
             degr = this->monoms.getcurr()->key.GetDegree();
             if(m1.GetDegree() < degr && m1.GetDegree()>this->monoms.getcurr()->pNext->key.GetDegree()){
@@ -50,7 +50,7 @@ void TPolinom::InsertInList(TMonom& m1){
             }
             this->monoms.next();
         }
-        if(degr == 0){
+        if(degr == -1){
             this->monoms.InsertEnd(m1);
             return;
         }
