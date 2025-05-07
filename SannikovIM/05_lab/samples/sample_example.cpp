@@ -7,11 +7,12 @@
 #include <iostream>
 #include "TMonom.h"
 #include "TPolinom.h"
-
+#include "ScanTable.h"
 
 using namespace std;
 
 int main() {
+   // ScanTable<int, int>(10);
 	//setlocale(LC_ALL, "Russian");
 	char flag = 'n';
 	bool isNew = 0;
