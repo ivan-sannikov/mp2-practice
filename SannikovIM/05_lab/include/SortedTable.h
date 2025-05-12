@@ -15,6 +15,28 @@ public:
 	TabRecord<TKey, TData>* Find(TKey key);
 };
 
+
+
+template <typename TKey, typename TData>
+void SortedTable<TKey, TData>::BubleSort() {
+	for(int i = 0; i<this->maxSize;i++){
+		for(int j = 0; j<this->maxsSize - i - 1; j++){
+			try{
+
+			}catch(const exception& e);
+		}
+	}
+}
+
+template <typename TKey, typename TData>
+void SortedTable<TKey, TData>::Remove(TKey key) {
+	if (key > this->maxSize) throw "error";
+	recs[key] = nullptr;
+}
+
+
+
+
 template <typename TKey, typename TData>
 
 SortedTable<TKey, TData>::SortedTable(int maxSize) : ScanTable<TKey, TData>(maxSize) {
@@ -37,3 +59,4 @@ void SortedTable<TKey, TData>::Remove(TKey key) {
 	if (key > this->maxSize) throw "error";
 	recs[key] = nullptr;
 }
+
