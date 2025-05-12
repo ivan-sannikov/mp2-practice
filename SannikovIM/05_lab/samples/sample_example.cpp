@@ -12,7 +12,7 @@
 using namespace std;
 
 int main() {
-   // ScanTable<int, int>(10);
+	ScanTable<int, int> a(10);
 	//setlocale(LC_ALL, "Russian");
 	char flag = 'n';
 	bool isNew = 0;
