@@ -92,11 +92,12 @@ bool ScanTable<TKey, TData>::IsTabEnden() {
 template <typename TKey, typename TData>
 void ScanTable<TKey, TData>::Next() {
 	if (IsTabEnden()) throw "error";
-	count++;
+	this->currPos++;
 }
 template <typename TKey, typename TData>
 void ScanTable<TKey, TData>::Reset() {
-	count = 0;
+    if(this->isEmpty()) throw "error";
+	currPos = 0;
 }
 template <typename TKey, typename TData>
 const ScanTable<TKey, TData>& ScanTable<TKey, TData>::operator=(const ScanTable<TKey, TData>& table) {

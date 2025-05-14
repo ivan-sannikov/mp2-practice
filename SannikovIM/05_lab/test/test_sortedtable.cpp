@@ -26,3 +26,14 @@ TEST(SortedTable, can_find_in_sortedtable) {
     a.Insert(3, 8);
     EXPECT_EQ(a.Find(3)->pData, 8);
 }
+TEST(SortedTable, can_insert_in_sortedtable) {
+    SortedTable<int, int> a(10);
+    a.Insert(1, 1);
+    a.Insert(2, 1);
+    a.Insert(4, 1);
+    a.Insert(3, 1);
+    a.Reset();
+    a.Next();
+    a.Next();
+    EXPECT_EQ(a.GetCurrent()->key, 3);
+}
