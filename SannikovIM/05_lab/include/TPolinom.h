@@ -39,5 +39,6 @@ public:
     TPolinom operator*(const TPolinom& pol);
     double operator()(double x, double y, double z) const;
     friend ostream& operator<<(ostream& ostr, const TPolinom& pol);
+    string GetIdPol()const { return id_pol; };
 
 };

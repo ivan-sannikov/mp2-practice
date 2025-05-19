@@ -16,14 +16,11 @@ private:
     
 public:
 	SortedTable(int maxSize);
-	SortedTable(ScanTable<TKey, TData>& table);
+	SortedTable(ScanTable<TKey, TData>& table, int id_sort = 0);
 	void Insert(TKey key, TData data);
 	void Remove(TKey key);
 	TabRecord<TKey, TData>* Find(TKey key);
 };
-
-
-
 template <typename TKey, typename TData>
 void SortedTable<TKey, TData>::BubleSort() {
 	for(int i = 0; i<this->count;i++){
@@ -152,45 +149,44 @@ void SortedTable<TKey, TData>::QuickSort(int low, int high) {
     }
 }
 template <typename TKey, typename TData>
-SortedTable<TKey, TData>::SortedTable(int maxSize) : ScanTable<TKey, TData>(maxSize) {
-	static_assert(std::is_arithmetic<TKey>::value, "error");
-}
-
+SortedTable<TKey, TData>::SortedTable(int maxSize) : ScanTable<TKey, TData>(maxSize){}
 template <typename TKey, typename TData>
-SortedTable<TKey, TData>::SortedTable(ScanTable<TKey, TData>& table) : ScanTable<TKey, TData>(table) {
-	QuickSort(0, this->count-1);
+SortedTable<TKey, TData>::SortedTable(ScanTable<TKey, TData>& table, int id_sort = 0) : ScanTable<TKey, TData>(table) {
+    switch (id_sort) {
+    case 0:
+        QuickSort(0, this->count - 1);
+        break;
+    case 1:
+        BubleSort();
+        break;
+    case 2:
+        SelectionSort();
+        break;
+    case 3:
+        InsertSort();
+        break;
+    case 4:
+        MergeSort(0, this->count - 1);
+        break;
+    default:
+        QuickSort(0, this->count - 1);
+        break;
+    }
 }
 
 template <typename TKey, typename TData>
 void SortedTable<TKey, TData>::Insert(TKey key, TData data) {
-    if(this->count == 0){
-        this->recs[0] = new TabRecord<TKey, TData>(key, data);
-        this->count++;
-        return;
+    int pos = this->binarySearch(key);
+    if (pos < this->count&& this->recs[pos]->key == key) throw "error";
+    for (int i = this->count; i > pos; i--) {
+        this->recs[i] = this->recs[i - 1];
     }
-	int tmp = this->binarySearch(key);
-	int i = 0;
-   
-	TabRecord<TKey, TData>** recs1;
-    recs1 = new TabRecord<TKey, TData>* [this->maxSize];
-	while(i<this->count+1){
-        if(i == tmp){
-            recs1[i] = new TabRecord<TKey, TData>(key, data);
-            i++;
-            
-            continue;
-        }
-		recs1[i] = this->recs[i];
-		i++;
-	}
-    for(int i = 0; i < this->count; i++){
-        this->recs[i] = recs1[i];
-    }
-    this->recs[this->count] = recs1[this->count];
-	this->count++;
+    this->recs[pos] = new TabRecord<TKey, TData>(key, data);
+    this->count++;
 }
 template <typename TKey, typename TData>
 TabRecord<TKey, TData>* SortedTable<TKey, TData>::Find(TKey key) {
+    if (this->isEmpty()) throw "error";
 	int low = 0;
 	int high = this->count - 1;
 	while (low <= high) {
@@ -208,7 +204,8 @@ TabRecord<TKey, TData>* SortedTable<TKey, TData>::Find(TKey key) {
 }
 template <typename TKey, typename TData>
 void SortedTable<TKey, TData>::Remove(TKey key) {
-	if (key > this->maxSize) throw "error";
-	this->recs[key] = nullptr;
+    if (this->isEmpty()) throw "error";
+    TabRecord<TKey, TData>* tmp = this->Find(key);
+    if (tmp != nullptr) ScanTable<TKey, TData>::Remove(key);
 }
 

@@ -2,36 +2,36 @@
 
 #include "list.h"
 
-template <typename T>
-class THeadList : public TList<T> {
+template <typename TKey>
+class THeadList : public TList<TKey> {
 protected:
-	TNode<T>* pHead;
+	TNode<TKey>* pHead;
 public:
-	THeadList() : TList<T>() {
-		this->pHead = new TNode<T>();
+	THeadList() : TList<TKey>() {
+		this->pHead = new TNode<TKey>();
 		this->pHead->pNext = this->pFirst;
 	}
-	THeadList(const THeadList& other) :TList<T>(other) {
-		this->pHead = new TNode<T>();
+	THeadList(const THeadList& other) :TList<TKey>(other) {
+		this->pHead = new TNode<TKey>();
 		this->pHead->pNext = this->pFirst;
 	}
 	~THeadList() {
 		delete this->pHead;
 		
 	}
-	virtual void InsertFirst(T key) {
-		TList<T>::InsertFirst(key);
+	virtual void InsertFirst(TKey key) {
+		TList<TKey>::InsertFirst(key);
 		this->pHead->pNext = this->pFirst;
 	}
 	virtual void DeleteFirst() {
-		TList<T>::DeleteFirst();
+		TList<TKey>::DeleteFirst();
 		this->pHead->pNext = this->pFirst;
 	}
 	const THeadList& operator=(const THeadList& other) {
 		//delete pHead;
 		this->pHead = nullptr;
-		TList<T>::operator=(other);
-		this->pHead = new TNode<T>();
+		TList<TKey>::operator=(other);
+		this->pHead = new TNode<TKey>();
 		this->pHead->pNext = this->pFirst;
 		return *this;
 	}

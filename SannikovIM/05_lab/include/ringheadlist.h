@@ -2,19 +2,19 @@
 
 #include "headlist.h"
 
-template <typename T>
-class TRingHeadList : public THeadList<T> {
+template <typename TKey>
+class TRingHeadList : public THeadList<TKey> {
 public:
-	TRingHeadList() : THeadList<T>() {
+	TRingHeadList() : THeadList<TKey>() {
 		this->pStop = this->pHead;
 		this->pHead->pNext = this->pStop;
 	}
-	TRingHeadList(const TRingHeadList& other) :THeadList<T>(other){
+	TRingHeadList(const TRingHeadList& other) :THeadList<TKey>(other){
 		this->pStop = this->pHead;
 		this->pLast->pNext = this->pStop;
 	}
-	virtual void InsertEnd(T key) {
-		TList<T>::InsertEnd(key);
+	virtual void InsertEnd(TKey key) {
+		TList<TKey>::InsertEnd(key);
 		this->pLast->pNext = this->pStop;
 	}
 	~TRingHeadList() {
@@ -25,12 +25,12 @@ public:
 		// pHead удалится в ~THeadList()
 	}
 	virtual void DeleteLast() {
-		TList<T>::DeleteLast();
+		TList<TKey>::DeleteLast();
 		this->pLast->pNext = this->pStop;
 	}
 	const TRingHeadList& operator=(const TRingHeadList& other) {
 		this->pStop = nullptr;
-		THeadList<T>::operator=(other);
+		THeadList<TKey>::operator=(other);
 		this->pStop = this->pHead;
 		this->pLast->pNext = this->pStop;
 		return *this;

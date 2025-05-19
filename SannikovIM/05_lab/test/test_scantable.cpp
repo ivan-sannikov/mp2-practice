@@ -1,6 +1,5 @@
 #include <gtest.h>
 #include "ScanTable.h"
-#include "SortedTable.h"
 
 TEST(ScanTable, can_make_scantable) {
     ScanTable<int, int> a(10);
@@ -68,7 +67,6 @@ TEST(ScanTable, can_Remove_element_scantable) {
 
 TEST(ScanTable, ca1n_Remove_element_scantable) {
     ScanTable<int, int> a(1);
-    SortedTable<int, int> b(10);
     a.Insert(1, 1);
     a.Remove(1);
     EXPECT_EQ(true, a.isEmpty());

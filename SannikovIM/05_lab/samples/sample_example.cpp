@@ -8,20 +8,15 @@
 #include "TMonom.h"
 #include "TPolinom.h"
 #include "ScanTable.h"
-
+#include "SortedTable.h"
+#include "ArrayHashTable.h"
+#include "ListHashTable.h"
 using namespace std;
-
-int main() {
-	ScanTable<int, int> a(10);
-	//setlocale(LC_ALL, "Russian");
+void PolinomOperation(TPolinom polinom1) {
 	char flag = 'n';
 	bool isNew = 0;
-	cout << "Enter Polinom:\n" << endl;
 	string pol;
-	cin >> pol;
-	TPolinom polinom1(pol);
 	while (flag != 'y' && flag != 'Y') {
-		cout << endl << polinom1 << endl << endl;
 		isNew = 0;
 		cout << "Choose:" << endl;
 		cout << "1) +" << endl;
@@ -169,12 +164,12 @@ int main() {
 			switch (a) {
 			case 1: {
 				TPolinom p = polinom1.DiffX();
-				cout << p<< endl << endl;
+				cout << p << endl << endl;
 				break;
 			}
 			case 2:
 			{
-				TPolinom p =  polinom1.DiffY();
+				TPolinom p = polinom1.DiffY();
 				cout << p << endl << endl;
 				break;
 			}
@@ -207,9 +202,9 @@ int main() {
 			cin >> y;
 			cout << "Z = ";
 			cin >> z;
-			cout << "Result: " << polinom1(x,y,z) << endl;
+			cout << "Result: " << polinom1(x, y, z) << endl;
 		}
-			break;
+		break;
 		case 7:
 			isNew = 1;
 			flag = 'y';
@@ -219,6 +214,292 @@ int main() {
 			cout << "Exit?" << endl;
 			cout << "(Yes - y, No - n): ";
 			cin >> flag;
+		}
+	}
+}
+
+
+int main() {
+	int sz;
+	try {
+		cout << "Enter table's size: " << endl;
+		cin >> sz;
+	}
+	catch (const char* error_message) {
+		return 0;
+	}
+	ScanTable<string, TPolinom> scanTable(sz);
+	SortedTable<string, TPolinom> sortedTable(sz);
+	ArrayHashTable<string, TPolinom> arrayHashTable(sz, 5);
+	ListHashTable<string, TPolinom> listHashTable(sz);
+	//setlocale(LC_ALL, "Russian");
+	char flag = 'n';
+	bool isNew = 0;
+
+	//cout << "Enter Polinom:\n" << endl;
+	//string pol;
+	//cin >> pol;
+	//TPolinom polinom1(pol);
+	while (flag != 'y' && flag != 'Y') {
+		int id;
+		//cout << endl << polinom1 << endl << endl;
+		cout << "Choose table:" << endl;
+		cout << "1) Scan Table" << endl;
+		cout << "2) Sorted Table" << endl;
+		cout << "3) Array Hash Table" << endl;
+		cout << "4) List Hash Table" << endl;
+		isNew = 0;
+		/*cout << "Choose:" << endl;
+		cout << "1) +" << endl;
+		cout << "2) -" << endl;
+		cout << "3) *" << endl;
+		cout << "4) Diff" << endl;
+		cout << "5) Change Polinom" << endl;
+		cout << "6) Calculate Polinom" << endl;
+		cout << "7) Exit" << endl;*/
+		int n;
+		int a;
+		cin >> n;
+		switch (n) {
+		case 1:
+			cout << "Choose:" << endl;
+			cout << "1) Insert" << endl;
+			cout << "2) Get" << endl;
+			cout << "3) Remove" << endl;
+			cout << "4) See Table" << endl;
+			cout << "5) Exit" << endl;
+			cin >> a;
+			switch (a) {
+			case 1:
+			{
+
+				cout << "Enter Polinom:\n" << endl;
+				string polin;
+				cin >> polin;
+				TPolinom pol(polin);
+				scanTable.Insert(pol.GetIdPol(), pol);
+				break;
+			}
+			case 2:
+			{
+				cout << "Enter Polinom:\n" << endl;
+				string polin;
+				cin >> polin;
+				TPolinom pol(polin);
+				TabRecord<string, TPolinom>* s = scanTable.Find(pol.GetIdPol());
+				if (s == nullptr) {
+					cout << "Not find" << endl;
+					break;
+				}
+				PolinomOperation(s->pData);
+				break;
+			}
+			case 3:
+			{
+
+				cout << "Enter Polinom:\n" << endl;
+				string polin;
+				cin >> polin;
+				TPolinom pol(polin);
+				scanTable.Remove(pol.GetIdPol());
+				break;
+			}
+			case 4:
+			{
+				scanTable.Reset();
+				cout << "\n" << endl;
+					while (!scanTable.IsTabEnden()) {
+						cout << scanTable.GetCurrent()->pData.GetIdPol() << endl;
+						scanTable.Next();
+					}
+				cout << "\n" << endl;
+				break;
+			}
+			default:
+				break;
+
+			}
+			break;
+
+		case 2:
+			cout << "Choose:" << endl;
+			cout << "1) Insert" << endl;
+			cout << "2) Get" << endl;
+			cout << "3) Remove" << endl;
+			cout << "4) See Table" << endl;
+			cout << "5) Exit" << endl;
+			cin >> a;
+			switch (a) {
+			case 1:
+			{
+
+				cout << "Enter Polinom:\n" << endl;
+				string polin;
+				cin >> polin;
+				TPolinom pol(polin);
+				sortedTable.Insert(pol.GetIdPol(), pol);
+				break;
+			}
+			case 2:
+			{
+				cout << "Enter Polinom:\n" << endl;
+				string polin;
+				cin >> polin;
+				TPolinom pol(polin);
+				TabRecord<string, TPolinom>* s = sortedTable.Find(pol.GetIdPol());
+				if (s == nullptr) {
+					cout << "Not find" << endl;
+					break;
+				}
+				PolinomOperation(s->pData);
+				break;
+			}
+			case 3:
+			{
+
+				cout << "Enter Polinom:\n" << endl;
+				string polin;
+				cin >> polin;
+				TPolinom pol(polin);
+				sortedTable.Remove(pol.GetIdPol());
+				break;
+			}
+			case 4:
+			{
+				sortedTable.Reset();
+				cout << "\n" << endl;
+				while (!sortedTable.IsTabEnden()) {
+					cout << sortedTable.GetCurrent()->pData.GetIdPol() << endl;
+					sortedTable.Next();
+				}
+				cout << "\n" << endl;
+				break;
+			}
+			default:
+				break;
+
+			}
+			break;
+		case 3:
+			cout << "Choose:" << endl;
+			cout << "1) Insert" << endl;
+			cout << "2) Get" << endl;
+			cout << "3) Remove" << endl;
+			cout << "4) See Table" << endl;
+			cout << "5) Exit" << endl;
+			cin >> a;
+			switch (a) {
+			case 1:
+			{
+
+				cout << "Enter Polinom:\n" << endl;
+				string polin;
+				cin >> polin;
+				TPolinom pol(polin);
+				arrayHashTable.Insert(pol.GetIdPol(), pol);
+				break;
+			}
+			case 2:
+			{
+				cout << "Enter Polinom:\n" << endl;
+				string polin;
+				cin >> polin;
+				TPolinom pol(polin);
+				TabRecord<string, TPolinom>* s = arrayHashTable.Find(pol.GetIdPol());
+				if (s == nullptr) {
+					cout << "Not find" << endl;
+					break;
+				}
+				PolinomOperation(s->pData);
+				break;
+			}
+			case 3:
+			{
+
+				cout << "Enter Polinom:\n" << endl;
+				string polin;
+				cin >> polin;
+				TPolinom pol(polin);
+				scanTable.Remove(pol.GetIdPol());
+				break;
+			}
+			case 4:
+			{
+				arrayHashTable.Reset();
+				cout << "\n" << endl;
+				while (!arrayHashTable.IsTabEnden()) {
+					cout << arrayHashTable.GetCurrent()->pData.GetIdPol() << endl;
+					arrayHashTable.Next();
+				}
+				cout << "\n" << endl;
+				break;
+			}
+			default:
+				break;
+
+			}
+			break;
+		case 4:
+			cout << "Choose:" << endl;
+			cout << "1) Insert" << endl;
+			cout << "2) Get" << endl;
+			cout << "3) Remove" << endl;
+			cout << "4) See Table" << endl;
+			cout << "5) Exit" << endl;
+			cin >> a;
+			switch (a) {
+			case 1:
+			{
+
+				cout << "Enter Polinom:\n" << endl;
+				string polin;
+				cin >> polin;
+				TPolinom pol(polin);
+				listHashTable.Insert(pol.GetIdPol(), pol);
+				break;
+			}
+			case 2:
+			{
+				cout << "Enter Polinom:\n" << endl;
+				string polin;
+				cin >> polin;
+				TPolinom pol(polin);
+				TabRecord<string, TPolinom>* s = listHashTable.Find(pol.GetIdPol());
+				if (s == nullptr) {
+					cout << "Not find" << endl;
+					break;
+				}
+				PolinomOperation(s->pData);
+				break;
+			}
+			case 3:
+			{
+
+				cout << "Enter Polinom:\n" << endl;
+				string polin;
+				cin >> polin;
+				TPolinom pol(polin);
+				listHashTable.Remove(pol.GetIdPol());
+				break;
+			}
+			case 4:
+			{
+				listHashTable.Reset();
+				cout << "\n" << endl;
+				while (!listHashTable.IsTabEnden()) {
+					cout << listHashTable.GetCurrent()->pData.GetIdPol() << endl;
+					listHashTable.Next();
+				}
+				cout << "\n" << endl;
+				break;
+			}
+			default:
+				break;
+
+			}
+			break;
+
+
 		}
 	}
 }
