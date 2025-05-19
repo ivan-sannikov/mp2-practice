@@ -5,7 +5,7 @@
 template <typename TKey, typename TData>
 class SortedTable : public ScanTable<TKey, TData> {
 private:
-	int binarySearch(TKey key);
+	int binarySearch(TKey key); // TODO: указатель на функцию или что-то одно
 	void BubleSort();
 	void QuickSort(int low, int high);
 	void SelectionSort();
@@ -35,7 +35,7 @@ void SortedTable<TKey, TData>::BubleSort() {
 
 }
 template <typename TKey, typename TData>
-int  SortedTable<TKey, TData>::binarySearch(TKey key) {
+int  SortedTable<TKey, TData>::binarySearch(TKey key) { // TODO: удалить
 	int low = 0;
 	int high = this->count-1;
 	while (low <= high) {
@@ -185,7 +185,7 @@ void SortedTable<TKey, TData>::Insert(TKey key, TData data) {
     this->count++;
 }
 template <typename TKey, typename TData>
-TabRecord<TKey, TData>* SortedTable<TKey, TData>::Find(TKey key) {
+TabRecord<TKey, TData>* SortedTable<TKey, TData>::Find(TKey key) { // TODO: currPos
     if (this->isEmpty()) throw "error";
 	int low = 0;
 	int high = this->count - 1;
@@ -203,7 +203,7 @@ TabRecord<TKey, TData>* SortedTable<TKey, TData>::Find(TKey key) {
 	return nullptr;
 }
 template <typename TKey, typename TData>
-void SortedTable<TKey, TData>::Remove(TKey key) {
+void SortedTable<TKey, TData>::Remove(TKey key) { // TODO: search + pack
     if (this->isEmpty()) throw "error";
     TabRecord<TKey, TData>* tmp = this->Find(key);
     if (tmp != nullptr) ScanTable<TKey, TData>::Remove(key);

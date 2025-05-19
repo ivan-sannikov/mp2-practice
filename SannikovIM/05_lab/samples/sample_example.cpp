@@ -12,7 +12,7 @@
 #include "ArrayHashTable.h"
 #include "ListHashTable.h"
 using namespace std;
-void PolinomOperation(TPolinom polinom1) {
+void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, SortedTable<string, TPolinom>& s2, ArrayHashTable<string, TPolinom>& s3, ListHashTable<string, TPolinom>& s4, int flag1) {
 	char flag = 'n';
 	bool isNew = 0;
 	string pol;
@@ -28,6 +28,8 @@ void PolinomOperation(TPolinom polinom1) {
 		cout << "7) Exit" << endl;
 		int n;
 		int a;
+		char yy;
+		char yyn;
 		cin >> n;
 		switch (n) {
 		case 1:
@@ -43,8 +45,66 @@ void PolinomOperation(TPolinom polinom1) {
 				cout << "Scalar:\n" << endl;
 				double x;
 				cin >> x;
-				polinom1 = polinom1 + x;
-				cout << polinom1 << endl << endl;
+				TPolinom polinom2 = polinom1 + x;
+				cout << polinom2 << endl << endl;
+				cout << "Save?" << endl;
+				cin >> yy;
+				if (yy == 'y') {
+					cout << "Save as new?" << endl;
+					cin >> yyn;
+					if (yyn == 'y') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					else if (yyn == 'n') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Remove(polinom1.GetIdPol());
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Remove(polinom1.GetIdPol());
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Remove(polinom1.GetIdPol());
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Remove(polinom1.GetIdPol());
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+				}
 				break;
 			}
 			case 2:
@@ -53,24 +113,142 @@ void PolinomOperation(TPolinom polinom1) {
 				string d;
 				cin >> d;
 				TMonom m(d);
-				polinom1 = polinom1 + m;
-				cout << polinom1 << endl << endl;
-				break;
+				TPolinom polinom2 = polinom1 + m;
+				cout << polinom2 << endl << endl;
+				cout << "Save?" << endl;
+				cin >> yy;
+				if (yy == 'y') {
+					cout << "Save as new?" << endl;
+					cin >> yyn;
+					if (yyn == 'y') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					else if (yyn == 'n') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Remove(polinom1.GetIdPol());
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Remove(polinom1.GetIdPol());
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Remove(polinom1.GetIdPol());
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Remove(polinom1.GetIdPol());
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					break;
+				}
 			}
 			case 3:
 			{
 				cout << "Polinom:\n" << endl;
 				cin >> pol;
-				TPolinom polinom2(pol);
-				polinom1 = polinom1 + polinom2;
-				cout << polinom1 << endl << endl;
-				break;
+				TPolinom polinom3(pol);
+				TPolinom polinom2 = polinom1 + polinom3;
+				cout << polinom2 << endl << endl;
+				cout << "Save?" << endl;
+				cin >> yy;
+				if (yy == 'y') {
+					cout << "Save as new?" << endl;
+					cin >> yyn;
+					if (yyn == 'y') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					else if (yyn == 'n') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Remove(polinom1.GetIdPol());
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Remove(polinom1.GetIdPol());
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Remove(polinom1.GetIdPol());
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Remove(polinom1.GetIdPol());
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					break;
+				}
+
 			}
 			default:
 				break;
 
 			}
 			break;
+
 
 		case 2:
 			cout << "Choose:" << endl;
@@ -85,9 +263,67 @@ void PolinomOperation(TPolinom polinom1) {
 				cout << "Scalar:\n" << endl;
 				double x;
 				cin >> x;
-				polinom1 = polinom1 - x;
-				cout << polinom1 << endl << endl;
-				break;
+				TPolinom polinom2 = polinom1 - x;
+				cout << polinom2 << endl << endl;
+				cout << "Save?" << endl;
+				cin >> yy;
+				if (yy == 'y') {
+					cout << "Save as new?" << endl;
+					cin >> yyn;
+					if (yyn == 'y') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					else if (yyn == 'n') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Remove(polinom1.GetIdPol());
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Remove(polinom1.GetIdPol());
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Remove(polinom1.GetIdPol());
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Remove(polinom1.GetIdPol());
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					break;
+				}
 			}
 			case 2:
 			{
@@ -95,18 +331,134 @@ void PolinomOperation(TPolinom polinom1) {
 				string d;
 				cin >> d;
 				TMonom m(d);
-				polinom1 = polinom1 - m;
-				cout << polinom1 << endl << endl;
-				break;
+				TPolinom polinom2 = polinom1 - m;
+				cout << polinom2 << endl << endl;
+				cout << "Save?" << endl;
+				cin >> yy;
+				if (yy == 'y') {
+					cout << "Save as new?" << endl;
+					cin >> yyn;
+					if (yyn == 'y') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					else if (yyn == 'n') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Remove(polinom1.GetIdPol());
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Remove(polinom1.GetIdPol());
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Remove(polinom1.GetIdPol());
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Remove(polinom1.GetIdPol());
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					break;
+				}
 			}
 			case 3:
 			{
 				cout << "Polinom:\n" << endl;
 				cin >> pol;
-				TPolinom polinom2(pol);
-				polinom1 = polinom1 - polinom2;
-				cout << polinom1 << endl << endl;
-				break;
+				TPolinom polinom3(pol);
+				TPolinom polinom2 = polinom1 - polinom3;
+				cout << polinom2 << endl << endl;
+				cout << "Save?" << endl;
+				cin >> yy;
+				if (yy == 'y') {
+					cout << "Save as new?" << endl;
+					cin >> yyn;
+					if (yyn == 'y') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					else if (yyn == 'n') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Remove(polinom1.GetIdPol());
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Remove(polinom1.GetIdPol());
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Remove(polinom1.GetIdPol());
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Remove(polinom1.GetIdPol());
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					break;
+				}
 			}
 			default:
 				break;
@@ -126,9 +478,67 @@ void PolinomOperation(TPolinom polinom1) {
 				int d;
 				cin >> d;
 
-				polinom1 = polinom1 * d;
-				cout << polinom1 << endl << endl;
-				break;
+				TPolinom polinom2 = polinom1 * d;
+				cout << polinom2 << endl << endl;
+				cout << "Save?" << endl;
+				cin >> yy;
+				if (yy == 'y') {
+					cout << "Save as new?" << endl;
+					cin >> yyn;
+					if (yyn == 'y') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					else if (yyn == 'n') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Remove(polinom1.GetIdPol());
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Remove(polinom1.GetIdPol());
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Remove(polinom1.GetIdPol());
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Remove(polinom1.GetIdPol());
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					break;
+				}
 			}
 			case 2:
 			{
@@ -136,18 +546,134 @@ void PolinomOperation(TPolinom polinom1) {
 				string d;
 				cin >> d;
 				TMonom m(d);
-				polinom1 = polinom1 * m;
-				cout << polinom1 << endl << endl;
-				break;
+				TPolinom polinom2 = polinom1 * m;
+				cout << polinom2 << endl << endl;
+				cout << "Save?" << endl;
+				cin >> yy;
+				if (yy == 'y') {
+					cout << "Save as new?" << endl;
+					cin >> yyn;
+					if (yyn == 'y') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					else if (yyn == 'n') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Remove(polinom1.GetIdPol());
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Remove(polinom1.GetIdPol());
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Remove(polinom1.GetIdPol());
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Remove(polinom1.GetIdPol());
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					break;
+				}
 			}
 			case 3:
 			{
 				cout << "Polinom:\n" << endl;
 				cin >> pol;
-				TPolinom polinom2(pol);
-				polinom1 = polinom1 * polinom2;
-				cout << polinom1 << endl << endl;
-				break;
+				TPolinom polinom3(pol);
+				TPolinom polinom2 = polinom1 * polinom3;
+				cout << polinom2 << endl << endl;
+				cout << "Save?" << endl;
+				cin >> yy;
+				if (yy == 'y') {
+					cout << "Save as new?" << endl;
+					cin >> yyn;
+					if (yyn == 'y') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					else if (yyn == 'n') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Remove(polinom1.GetIdPol());
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Remove(polinom1.GetIdPol());
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Remove(polinom1.GetIdPol());
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Remove(polinom1.GetIdPol());
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					break;
+				}
 			}
 			default:
 				break;
@@ -163,21 +689,195 @@ void PolinomOperation(TPolinom polinom1) {
 			cin >> a;
 			switch (a) {
 			case 1: {
-				TPolinom p = polinom1.DiffX();
-				cout << p << endl << endl;
-				break;
+				TPolinom polinom2 = polinom1.DiffX();
+				cout << polinom2 << endl << endl;
+				cout << "Save?" << endl;
+				cin >> yy;
+				if (yy == 'y') {
+					cout << "Save as new?" << endl;
+					cin >> yyn;
+					if (yyn == 'y') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					else if (yyn == 'n') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Remove(polinom1.GetIdPol());
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Remove(polinom1.GetIdPol());
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Remove(polinom1.GetIdPol());
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Remove(polinom1.GetIdPol());
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					break;
+				}
 			}
 			case 2:
 			{
-				TPolinom p = polinom1.DiffY();
-				cout << p << endl << endl;
-				break;
+				TPolinom polinom2 = polinom1.DiffY();
+				cout << polinom2 << endl << endl;
+				cout << "Save?" << endl;
+				cin >> yy;
+				if (yy == 'y') {
+					cout << "Save as new?" << endl;
+					cin >> yyn;
+					if (yyn == 'y') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					else if (yyn == 'n') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Remove(polinom1.GetIdPol());
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Remove(polinom1.GetIdPol());
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Remove(polinom1.GetIdPol());
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Remove(polinom1.GetIdPol());
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					break;
+				}
 			}
 			case 3:
 			{
-				TPolinom p = polinom1.DiffZ();
-				cout << p << endl << endl;
-				break;
+				TPolinom polinom2 = polinom1.DiffZ();
+				cout << polinom2 << endl << endl;
+				cout << "Save?" << endl;
+				cin >> yy;
+				if (yy == 'y') {
+					cout << "Save as new?" << endl;
+					cin >> yyn;
+					if (yyn == 'y') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					else if (yyn == 'n') {
+						switch (flag1) {
+						case 1:
+						{
+							s1.Remove(polinom1.GetIdPol());
+							s1.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 2:
+						{
+							s2.Remove(polinom1.GetIdPol());
+							s2.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 3:
+						{
+							s3.Remove(polinom1.GetIdPol());
+							s3.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						case 4:
+						{
+							s4.Remove(polinom1.GetIdPol());
+							s4.Insert(polinom2.GetIdPol(), polinom2);
+							break;
+						}
+						}
+					}
+					break;
+				}
 			}
 			default:
 				break;
@@ -189,8 +889,33 @@ void PolinomOperation(TPolinom polinom1) {
 			cout << "Enter new Polinom:\n" << endl;
 			cin >> pol;
 			TPolinom polinom2(pol);
-			polinom1 = polinom2;
-			isNew = 1;
+			switch (flag1) {
+			case 1:
+			{
+				s1.Remove(polinom1.GetIdPol());
+				s1.Insert(polinom2.GetIdPol(), polinom2);
+				break;
+			}
+			case 2:
+			{
+				s2.Remove(polinom1.GetIdPol());
+				s2.Insert(polinom2.GetIdPol(), polinom2);
+				break;
+			}
+			case 3:
+			{
+				s3.Remove(polinom1.GetIdPol());
+				s3.Insert(polinom2.GetIdPol(), polinom2);
+				break;
+			}
+			case 4:
+			{
+				s4.Remove(polinom1.GetIdPol());
+				s4.Insert(polinom2.GetIdPol(), polinom2);
+				break;
+			}
+			}
+			return;
 		}
 			  break;
 		case 6:
@@ -248,6 +973,7 @@ int main() {
 		cout << "2) Sorted Table" << endl;
 		cout << "3) Array Hash Table" << endl;
 		cout << "4) List Hash Table" << endl;
+		cout << "5) Exit" << endl; 
 		isNew = 0;
 		/*cout << "Choose:" << endl;
 		cout << "1) +" << endl;
@@ -255,8 +981,7 @@ int main() {
 		cout << "3) *" << endl;
 		cout << "4) Diff" << endl;
 		cout << "5) Change Polinom" << endl;
-		cout << "6) Calculate Polinom" << endl;
-		cout << "7) Exit" << endl;*/
+		cout << "6) Calculate Polinom" << endl;*/
 		int n;
 		int a;
 		cin >> n;
@@ -282,6 +1007,13 @@ int main() {
 			}
 			case 2:
 			{
+				scanTable.Reset();
+				cout << "\n" << endl;
+				while (!scanTable.IsTabEnden()) {
+					cout << scanTable.GetCurrent()->pData.GetIdPol() << endl;
+					scanTable.Next();
+				}
+				cout << "\n" << endl;
 				cout << "Enter Polinom:\n" << endl;
 				string polin;
 				cin >> polin;
@@ -291,7 +1023,7 @@ int main() {
 					cout << "Not find" << endl;
 					break;
 				}
-				PolinomOperation(s->pData);
+				PolinomOperation(s->pData, scanTable, sortedTable, arrayHashTable, listHashTable, 1);
 				break;
 			}
 			case 3:
@@ -308,10 +1040,10 @@ int main() {
 			{
 				scanTable.Reset();
 				cout << "\n" << endl;
-					while (!scanTable.IsTabEnden()) {
-						cout << scanTable.GetCurrent()->pData.GetIdPol() << endl;
-						scanTable.Next();
-					}
+				while (!scanTable.IsTabEnden()) {
+					cout << scanTable.GetCurrent()->pData.GetIdPol() << endl;
+					scanTable.Next();
+				}
 				cout << "\n" << endl;
 				break;
 			}
@@ -342,6 +1074,13 @@ int main() {
 			}
 			case 2:
 			{
+				sortedTable.Reset();
+				cout << "\n" << endl;
+				while (!sortedTable.IsTabEnden()) {
+					cout << sortedTable.GetCurrent()->pData.GetIdPol() << endl;
+					sortedTable.Next();
+				}
+				cout << "\n" << endl;
 				cout << "Enter Polinom:\n" << endl;
 				string polin;
 				cin >> polin;
@@ -351,7 +1090,8 @@ int main() {
 					cout << "Not find" << endl;
 					break;
 				}
-				PolinomOperation(s->pData);
+
+				PolinomOperation(s->pData, scanTable, sortedTable, arrayHashTable, listHashTable, 2);
 				break;
 			}
 			case 3:
@@ -401,6 +1141,13 @@ int main() {
 			}
 			case 2:
 			{
+				arrayHashTable.Reset();
+				cout << "\n" << endl;
+				while (!arrayHashTable.IsTabEnden()) {
+					cout << arrayHashTable.GetCurrent()->pData.GetIdPol() << endl;
+					arrayHashTable.Next();
+				}
+				cout << "\n" << endl;
 				cout << "Enter Polinom:\n" << endl;
 				string polin;
 				cin >> polin;
@@ -410,7 +1157,8 @@ int main() {
 					cout << "Not find" << endl;
 					break;
 				}
-				PolinomOperation(s->pData);
+				
+				PolinomOperation(s->pData, scanTable, sortedTable, arrayHashTable, listHashTable, 3);
 				break;
 			}
 			case 3:
@@ -460,6 +1208,13 @@ int main() {
 			}
 			case 2:
 			{
+				listHashTable.Reset();
+				cout << "\n" << endl;
+				while (!listHashTable.IsTabEnden()) {
+					cout << listHashTable.GetCurrent()->pData.GetIdPol() << endl;
+					listHashTable.Next();
+				}
+				cout << "\n" << endl;
 				cout << "Enter Polinom:\n" << endl;
 				string polin;
 				cin >> polin;
@@ -469,7 +1224,7 @@ int main() {
 					cout << "Not find" << endl;
 					break;
 				}
-				PolinomOperation(s->pData);
+				PolinomOperation(s->pData, scanTable, sortedTable, arrayHashTable, listHashTable, 4);
 				break;
 			}
 			case 3:
@@ -493,13 +1248,18 @@ int main() {
 				cout << "\n" << endl;
 				break;
 			}
+			
 			default:
 				break;
 
 			}
 			break;
+		case 5:
+			flag = 'y';
+			break;
 
 
 		}
 	}
+	return 1;
 }

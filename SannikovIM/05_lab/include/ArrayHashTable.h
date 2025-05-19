@@ -8,7 +8,7 @@ private:
     TabRecord<TKey, TData>* pMark;
     int freePos;
     int hashStep;
-    unsigned long GetNextPos(unsigned long ind) {
+    int GetNextPos(int ind) {
         return(ind + this->hashStep) % this->maxSize;
     }
 public:
@@ -18,11 +18,10 @@ public:
     TabRecord<TKey, TData>* Find(TKey key);
     void Insert(TKey key, TData data);
     void Remove(TKey key);
-    TabRecord<TKey, TData>* GetCurrent();
- //   bool IsTabEnden();
+    TabRecord<TKey, TData>* GetCurrent() const;
     void Next();
     void Reset();
-    ArrayHashTable<TKey, TData>& operator=(const ArrayHashTable<TKey, TData>& other);
+    const ArrayHashTable<TKey, TData>& operator=(const ArrayHashTable<TKey, TData>& other);
     bool operator==(const ArrayHashTable<TKey, TData>& other) const;
     bool operator!=(const ArrayHashTable<TKey, TData>& other) const;
 };
@@ -124,12 +123,12 @@ void ArrayHashTable<TKey, TData>::Next() {
     }
 }
 template <typename TKey, typename TData>
-TabRecord<TKey, TData>* ArrayHashTable<TKey, TData>::GetCurrent() {
+TabRecord<TKey, TData>* ArrayHashTable<TKey, TData>::GetCurrent() const {
     if (isEmpty()) throw "error";
     return this->recs[this->currPos];
 }
 template <typename TKey, typename TData>
-ArrayHashTable<TKey, TData>& ArrayHashTable<TKey, TData>::operator=(const ArrayHashTable<TKey, TData>& other) {
+const ArrayHashTable<TKey, TData>& ArrayHashTable<TKey, TData>::operator=(const ArrayHashTable<TKey, TData>& other) {
     if (this == &other) return *this;
     this->maxSize = other.maxSize;
     this->hashStep = other.hashStep;
@@ -156,7 +155,7 @@ bool ArrayHashTable<TKey, TData>::operator==(const ArrayHashTable<TKey, TData>& 
     if (this->hashStep != other.hashStep || this->count != other.count) {
         return false;
     }
-    for (int i = 0; i < this->maxSize; i++) {
+    for (int i = 0; i < this->maxSize; i++) { // TODO: посчитать совпадения
         if (this->recs[i] == nullptr && other.recs[i] == nullptr) {
             continue;
         }

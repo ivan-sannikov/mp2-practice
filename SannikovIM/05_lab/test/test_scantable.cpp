@@ -2,8 +2,12 @@
 #include "ScanTable.h"
 
 TEST(ScanTable, can_make_scantable) {
-    ScanTable<int, int> a(10);
-    ASSERT_NO_THROW(a);
+    try {
+        ScanTable<int, int> a(10);
+    }
+    catch (...) {
+        ADD_FAILURE();
+    }
 }
 TEST(ScanTable, can_copy_scantable) {
     ScanTable<int, int> a(10);
