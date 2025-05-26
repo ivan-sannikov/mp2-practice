@@ -124,7 +124,7 @@ void ArrayHashTable<TKey, TData>::Next() {
 }
 template <typename TKey, typename TData>
 TabRecord<TKey, TData>* ArrayHashTable<TKey, TData>::GetCurrent() const {
-    if (isEmpty()) throw "error";
+    if (this->isEmpty()) throw "error";
     return this->recs[this->currPos];
 }
 template <typename TKey, typename TData>
@@ -152,27 +152,11 @@ const ArrayHashTable<TKey, TData>& ArrayHashTable<TKey, TData>::operator=(const 
 }
 template <typename TKey, typename TData>
 bool ArrayHashTable<TKey, TData>::operator==(const ArrayHashTable<TKey, TData>& other) const {
-    if (this->hashStep != other.hashStep || this->count != other.count) {
+    if (this->hashStep != other.hashStep || this->count != other.count || this->maxSize != other.maxSize) {
         return false;
     }
-    for (int i = 0; i < this->maxSize; i++) { // TODO: посчитать совпадения
-        if (this->recs[i] == nullptr && other.recs[i] == nullptr) {
-            continue;
-        }
-        if ((this->recs[i] == nullptr) != (other.recs[i] == nullptr)) {
-            return false;
-        }
-        if ((this->recs[i] == this->pMark && other.recs[i] != other.pMark) ||
-            (this->recs[i] != this->pMark && other.recs[i] == other.pMark)) {
-            return false;
-        }
-        if (this->recs[i] != this->pMark && this->recs[i] != nullptr && 
-            other.recs[i] != other.pMark && other.recs[i] != nullptr) {
-            if (this->recs[i]->key != other.recs[i]->key ||
-                this->recs[i]->data != other.recs[i]->data) {
-                return false;
-            }
-        }
+    for(int i = 0;i<this->count;i++){
+        if(this->recs[i] != other.recs[i]) return false;
     }
 
     return true;
