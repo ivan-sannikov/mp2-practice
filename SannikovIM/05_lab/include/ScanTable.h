@@ -2,6 +2,8 @@
 #include "Table.h"
 #include <iostream>
 
+using namespace std;
+
 template <typename TKey, typename TData>
 class ScanTable : public Table<TKey, TData> {
 private:
@@ -10,7 +12,7 @@ protected:
 	TabRecord<TKey, TData>** recs;
 public:
 	ScanTable(int maxSize);
-	ScanTable(ScanTable<TKey, TData>& table);
+	ScanTable(const ScanTable<TKey, TData>& table);
 	~ScanTable();
 	virtual void Insert(TKey key, TData data);
 	virtual void Remove(TKey key);
@@ -21,6 +23,13 @@ public:
 	const ScanTable<TKey, TData>& operator=(const ScanTable<TKey, TData>& table);
 	bool operator==(const ScanTable<TKey, TData>& table) const;
 	bool operator!=(const ScanTable<TKey, TData>& table) const;
+    friend ostream& operator<<(ostream& ostr, const ScanTable<TKey, TData>& table){
+        for (int i = 0; i < table.count; i++) {
+            ostr << table.recs[i]->pData;
+        }
+        ostr<<endl;
+        return ostr;
+    }
 };
 
 
@@ -56,7 +65,7 @@ ScanTable<TKey, TData>::~ScanTable() {
 }
 
 template <typename TKey, typename TData>
-ScanTable<TKey, TData>::ScanTable(ScanTable<TKey, TData>& table) {
+ScanTable<TKey, TData>::ScanTable(const ScanTable<TKey, TData>& table) {
     copy(table);
 }
 template <typename TKey, typename TData>
@@ -117,10 +126,4 @@ template <typename TKey, typename TData>
 bool ScanTable<TKey, TData>::operator!=(const ScanTable<TKey, TData>& table) const {
 	return !(*this == table);
 }
-
-
-
-
-
-
 

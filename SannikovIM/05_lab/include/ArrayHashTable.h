@@ -24,6 +24,13 @@ public:
     const ArrayHashTable<TKey, TData>& operator=(const ArrayHashTable<TKey, TData>& other);
     bool operator==(const ArrayHashTable<TKey, TData>& other) const;
     bool operator!=(const ArrayHashTable<TKey, TData>& other) const;
+    friend ostream& operator<<(ostream& ostr, const ArrayHashTable<TKey, TData>& table){
+        for (int i = 0; i < table.maxSize; i++) {
+            if(table.recs[i] != nullptr && table.recs[i] != table.pMark)ostr << table.recs[i]->pData;
+        }
+        ostr<<endl;
+        return ostr;
+    }
 };
 template <typename TKey, typename TData>
 ArrayHashTable<TKey, TData>::ArrayHashTable(int maxSize, int hashStep) {
@@ -156,7 +163,9 @@ bool ArrayHashTable<TKey, TData>::operator==(const ArrayHashTable<TKey, TData>& 
         return false;
     }
     for(int i = 0;i<this->count;i++){
-        if(this->recs[i] != other.recs[i]) return false;
+        if (this->recs[i] == nullptr && other.recs[i] == nullptr) continue;
+        if (this->recs[i] == this->pMark && other.recs[i] == other.pMark) continue;
+        if (*(this->recs[i]) != *(other.recs[i])) return false;
     }
 
     return true;
@@ -165,3 +174,4 @@ template <typename TKey, typename TData>
 bool ArrayHashTable<TKey, TData>::operator!=(const ArrayHashTable<TKey, TData>& other) const {
     return !(*this == other);
 }
+

@@ -371,7 +371,6 @@ ostream& operator<<(ostream& ostr, const TPolinom& pol)
     TPolinom p = pol;
     p.GetPolinom();
     ostr << p.id_pol;
-    ostr << endl;
     return ostr;
 }
     
