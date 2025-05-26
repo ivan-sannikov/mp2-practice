@@ -37,6 +37,7 @@ TEST(ScanTable, can_getcurrent_scantable) {
     ScanTable<int, int> a(10);
     a.Insert(1, 1);
     TabRecord<int, int>* r = new TabRecord<int, int>(1, 1);
+    int v = a.GetCurrent()->pData;
     EXPECT_EQ(a.GetCurrent()->pData, r->pData);
 }
 TEST(ScanTable, can_work_equal_scantable) {

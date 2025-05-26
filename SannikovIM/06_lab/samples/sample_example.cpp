@@ -10,9 +10,103 @@
 #include "ScanTable.h"
 #include "SortedTable.h"
 #include "ArrayHashTable.h"
-#include "ListHashTable.h"
+#include "BSTable.h"
 using namespace std;
-void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, SortedTable<string, TPolinom>& s2, ArrayHashTable<string, TPolinom>& s3, ListHashTable<string, TPolinom>& s4, int flag1) {
+
+TPolinom GetPolinomFromTable(ScanTable<string, TPolinom>& s1, SortedTable<string, TPolinom>& s2, ArrayHashTable<string, TPolinom>& s3, BSTable<string, TPolinom>& s4){
+    cout << "Choose table:" << endl;
+    cout << "1) Scan Table" << endl;
+    cout << "2) Sorted Table" << endl;
+    cout << "3) Array Hash Table" << endl;
+    cout << "4) BS Table" << endl;
+    int f;
+    cin>>f;
+    switch(f){
+        case 1:{
+            s1.Reset();
+            cout << "\n" << endl;
+            while (!s1.IsTabEnden()) {
+                cout << s1.GetCurrent()->pData.GetIdPol() << endl;
+                s1.Next();
+            }
+            cout << "\n" << endl;
+            cout<<"Enter Polinom"<<endl;
+            string s;
+            cin>>s;
+            while(s1.Find(s) == nullptr){
+                cout<<"Can't find this polinom"<<endl;
+                cout<<"Enter Polinom"<<endl;
+                cin>>s;
+            }
+            TPolinom a(s);
+            return a;
+            break;
+        }
+        case 2:{
+            s2.Reset();
+            cout << "\n" << endl;
+            while (!s2.IsTabEnden()) {
+                cout << s1.GetCurrent()->pData.GetIdPol() << endl;
+                s2.Next();
+            }
+            cout<<"Enter Polinom"<<endl;
+            string s;
+            cin>>s;
+            while(s2.Find(s) == nullptr){
+                cout<<"Can't find this polinom \n"<<endl;
+                cout<<"Enter Polinom"<<endl;
+                cin>>s;
+            }
+            TPolinom a(s);
+            return a;
+            break;
+        }
+        case 3:{
+            s3.Reset();
+            cout << "\n" << endl;
+            while (!s3.IsTabEnden()) {
+                cout << s3.GetCurrent()->pData.GetIdPol() << endl;
+                s3.Next();
+            }
+            cout<<"Enter Polinom"<<endl;
+            string s;
+            cin>>s;
+            while(s3.Find(s) == nullptr){
+                cout<<"Can't find this polinom \n"<<endl;
+                cout<<"Enter Polinom"<<endl;
+                cin>>s;
+            }
+            TPolinom a(s);
+            return a;
+            break;
+        }
+        case 4:{
+            s4.Reset();
+            cout << "\n" << endl;
+            while (!s4.IsTabEnden()) {
+                cout << s4.GetCurrent()->pData.GetIdPol() << endl;
+                s4.Next();
+            }
+            cout<<"Enter Polinom"<<endl;
+            string s;
+            cin>>s;
+            while(s3.Find(s) == nullptr){
+                cout<<"Can't find this polinom \n"<<endl;
+                cout<<"Enter Polinom"<<endl;
+                cin>>s;
+            }
+            TPolinom a(s);
+            return a;
+            break;
+        }
+        default:{
+            cout<<"Incorrect operationon\n"<<endl;
+        }
+    }
+}
+
+
+void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, SortedTable<string, TPolinom>& s2, ArrayHashTable<string, TPolinom>& s3, BSTable<string, TPolinom>& s4, int flag1) {
 	char flag = 'n';
 	bool isNew = 0;
 	string pol;
@@ -69,11 +163,11 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                        case 4:
+                        {
+                            s4.Insert(polinom2.GetIdPol(), polinom2);
+                            break;
+                        }
 						}
 					}
 					else if (yyn == 'n') {
@@ -96,12 +190,12 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Remove(polinom1.GetIdPol());
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                        case 4:
+                        {
+                            s4.Remove(polinom1.GetIdPol());
+                            s4.Insert(polinom2.GetIdPol(), polinom2);
+                            break;
+                        }
 						}
 					}
 				}
@@ -137,11 +231,13 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                                
+                            case 4:
+                            {
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
+						
 						}
 					}
 					else if (yyn == 'n') {
@@ -164,12 +260,12 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Remove(polinom1.GetIdPol());
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                            case 4:
+                            {
+                                s4.Remove(polinom1.GetIdPol());
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
 						}
 					}
 					break;
@@ -177,9 +273,7 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 			}
 			case 3:
 			{
-				cout << "Polinom:\n" << endl;
-				cin >> pol;
-				TPolinom polinom3(pol);
+                TPolinom polinom3 = GetPolinomFromTable(s1, s2, s3, s4);
 				TPolinom polinom2 = polinom1 + polinom3;
 				cout << polinom2 << endl << endl;
 				cout << "Save?" << endl;
@@ -204,11 +298,11 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                            case 4:
+                            {
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
 						}
 					}
 					else if (yyn == 'n') {
@@ -231,12 +325,12 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Remove(polinom1.GetIdPol());
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                            case 4:
+                            {
+                                s4.Remove(polinom1.GetIdPol());
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
 						}
 					}
 					break;
@@ -287,11 +381,11 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                            case 4:
+                            {
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
 						}
 					}
 					else if (yyn == 'n') {
@@ -314,12 +408,12 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Remove(polinom1.GetIdPol());
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                            case 4:
+                            {
+                                s4.Remove(polinom1.GetIdPol());
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
 						}
 					}
 					break;
@@ -355,11 +449,11 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                            case 4:
+                            {
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
 						}
 					}
 					else if (yyn == 'n') {
@@ -382,12 +476,12 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Remove(polinom1.GetIdPol());
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                            case 4:
+                            {
+                                s4.Remove(polinom1.GetIdPol());
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
 						}
 					}
 					break;
@@ -395,9 +489,7 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 			}
 			case 3:
 			{
-				cout << "Polinom:\n" << endl;
-				cin >> pol;
-				TPolinom polinom3(pol);
+                TPolinom polinom3 = GetPolinomFromTable(s1, s2, s3, s4);
 				TPolinom polinom2 = polinom1 - polinom3;
 				cout << polinom2 << endl << endl;
 				cout << "Save?" << endl;
@@ -422,11 +514,11 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                            case 4:
+                            {
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
 						}
 					}
 					else if (yyn == 'n') {
@@ -449,12 +541,12 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Remove(polinom1.GetIdPol());
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                            case 4:
+                            {
+                                s4.Remove(polinom1.GetIdPol());
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
 						}
 					}
 					break;
@@ -502,11 +594,11 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                            case 4:
+                            {
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
 						}
 					}
 					else if (yyn == 'n') {
@@ -529,12 +621,12 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Remove(polinom1.GetIdPol());
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                            case 4:
+                            {
+                                s4.Remove(polinom1.GetIdPol());
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
 						}
 					}
 					break;
@@ -570,11 +662,11 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                            case 4:
+                            {
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
 						}
 					}
 					else if (yyn == 'n') {
@@ -597,12 +689,12 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Remove(polinom1.GetIdPol());
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                            case 4:
+                            {
+                                s4.Remove(polinom1.GetIdPol());
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
 						}
 					}
 					break;
@@ -610,9 +702,7 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 			}
 			case 3:
 			{
-				cout << "Polinom:\n" << endl;
-				cin >> pol;
-				TPolinom polinom3(pol);
+                TPolinom polinom3 = GetPolinomFromTable(s1, s2, s3,s4);
 				TPolinom polinom2 = polinom1 * polinom3;
 				cout << polinom2 << endl << endl;
 				cout << "Save?" << endl;
@@ -637,11 +727,11 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                            case 4:
+                            {
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
 						}
 					}
 					else if (yyn == 'n') {
@@ -664,12 +754,12 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Remove(polinom1.GetIdPol());
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                            case 4:
+                            {
+                                s4.Remove(polinom1.GetIdPol());
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
 						}
 					}
 					break;
@@ -713,11 +803,11 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                            case 4:
+                            {
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
 						}
 					}
 					else if (yyn == 'n') {
@@ -740,12 +830,12 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Remove(polinom1.GetIdPol());
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                            case 4:
+                            {
+                                s4.Remove(polinom1.GetIdPol());
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
 						}
 					}
 					break;
@@ -777,11 +867,11 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                            case 4:
+                            {
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
 						}
 					}
 					else if (yyn == 'n') {
@@ -804,12 +894,12 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Remove(polinom1.GetIdPol());
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                            case 4:
+                            {
+                                s4.Remove(polinom1.GetIdPol());
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
 						}
 					}
 					break;
@@ -841,11 +931,11 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                            case 4:
+                            {
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
 						}
 					}
 					else if (yyn == 'n') {
@@ -868,12 +958,12 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 							s3.Insert(polinom2.GetIdPol(), polinom2);
 							break;
 						}
-						case 4:
-						{
-							s4.Remove(polinom1.GetIdPol());
-							s4.Insert(polinom2.GetIdPol(), polinom2);
-							break;
-						}
+                            case 4:
+                            {
+                                s4.Remove(polinom1.GetIdPol());
+                                s4.Insert(polinom2.GetIdPol(), polinom2);
+                                break;
+                            }
 						}
 					}
 					break;
@@ -908,12 +998,12 @@ void PolinomOperation(TPolinom polinom1, ScanTable<string, TPolinom>& s1, Sorted
 				s3.Insert(polinom2.GetIdPol(), polinom2);
 				break;
 			}
-			case 4:
-			{
-				s4.Remove(polinom1.GetIdPol());
-				s4.Insert(polinom2.GetIdPol(), polinom2);
-				break;
-			}
+                case 4:
+                {
+                    s4.Remove(polinom1.GetIdPol());
+                    s4.Insert(polinom2.GetIdPol(), polinom2);
+                    break;
+                }
 			}
 			return;
 		}
@@ -956,32 +1046,19 @@ int main() {
 	ScanTable<string, TPolinom> scanTable(sz);
 	SortedTable<string, TPolinom> sortedTable(sz);
 	ArrayHashTable<string, TPolinom> arrayHashTable(sz, 5);
-	ListHashTable<string, TPolinom> listHashTable(sz);
+    BSTable<string, TPolinom> bstable(sz);
 	//setlocale(LC_ALL, "Russian");
 	char flag = 'n';
 	bool isNew = 0;
-
-	//cout << "Enter Polinom:\n" << endl;
-	//string pol;
-	//cin >> pol;
-	//TPolinom polinom1(pol);
 	while (flag != 'y' && flag != 'Y') {
 		int id;
-		//cout << endl << polinom1 << endl << endl;
 		cout << "Choose table:" << endl;
 		cout << "1) Scan Table" << endl;
 		cout << "2) Sorted Table" << endl;
 		cout << "3) Array Hash Table" << endl;
-		cout << "4) List Hash Table" << endl;
-		cout << "5) Exit" << endl; 
+        cout << "4) BS Table" << endl;
+		cout << "5) Exit" << endl;
 		isNew = 0;
-		/*cout << "Choose:" << endl;
-		cout << "1) +" << endl;
-		cout << "2) -" << endl;
-		cout << "3) *" << endl;
-		cout << "4) Diff" << endl;
-		cout << "5) Change Polinom" << endl;
-		cout << "6) Calculate Polinom" << endl;*/
 		int n;
 		int a;
 		cin >> n;
@@ -1023,7 +1100,7 @@ int main() {
 					cout << "Not find" << endl;
 					break;
 				}
-				PolinomOperation(s->pData, scanTable, sortedTable, arrayHashTable, listHashTable, 1);
+				PolinomOperation(s->pData, scanTable, sortedTable, arrayHashTable, bstable, 1);
 				break;
 			}
 			case 3:
@@ -1091,7 +1168,7 @@ int main() {
 					break;
 				}
 
-				PolinomOperation(s->pData, scanTable, sortedTable, arrayHashTable, listHashTable, 2);
+				PolinomOperation(s->pData, scanTable, sortedTable, arrayHashTable, bstable, 2);
 				break;
 			}
 			case 3:
@@ -1158,7 +1235,7 @@ int main() {
 					break;
 				}
 				
-				PolinomOperation(s->pData, scanTable, sortedTable, arrayHashTable, listHashTable, 3);
+				PolinomOperation(s->pData, scanTable, sortedTable, arrayHashTable, bstable, 3);
 				break;
 			}
 			case 3:
@@ -1168,7 +1245,7 @@ int main() {
 				string polin;
 				cin >> polin;
 				TPolinom pol(polin);
-				scanTable.Remove(pol.GetIdPol());
+				arrayHashTable.Remove(pol.GetIdPol());
 				break;
 			}
 			case 4:
@@ -1187,73 +1264,74 @@ int main() {
 
 			}
 			break;
-		case 4:
-			cout << "Choose:" << endl;
-			cout << "1) Insert" << endl;
-			cout << "2) Get" << endl;
-			cout << "3) Remove" << endl;
-			cout << "4) See Table" << endl;
-			cout << "5) Exit" << endl;
-			cin >> a;
-			switch (a) {
-			case 1:
-			{
+        case 4:
+                cout << "Choose:" << endl;
+                cout << "1) Insert" << endl;
+                cout << "2) Get" << endl;
+                cout << "3) Remove" << endl;
+                cout << "4) See Table" << endl;
+                cout << "5) Exit" << endl;
+                cin >> a;
+                switch (a) {
+                case 1:
+                {
 
-				cout << "Enter Polinom:\n" << endl;
-				string polin;
-				cin >> polin;
-				TPolinom pol(polin);
-				listHashTable.Insert(pol.GetIdPol(), pol);
-				break;
-			}
-			case 2:
-			{
-				listHashTable.Reset();
-				cout << "\n" << endl;
-				while (!listHashTable.IsTabEnden()) {
-					cout << listHashTable.GetCurrent()->pData.GetIdPol() << endl;
-					listHashTable.Next();
-				}
-				cout << "\n" << endl;
-				cout << "Enter Polinom:\n" << endl;
-				string polin;
-				cin >> polin;
-				TPolinom pol(polin);
-				TabRecord<string, TPolinom>* s = listHashTable.Find(pol.GetIdPol());
-				if (s == nullptr) {
-					cout << "Not find" << endl;
-					break;
-				}
-				PolinomOperation(s->pData, scanTable, sortedTable, arrayHashTable, listHashTable, 4);
-				break;
-			}
-			case 3:
-			{
+                    cout << "Enter Polinom:\n" << endl;
+                    string polin;
+                    cin >> polin;
+                    TPolinom pol(polin);
+                    bstable.Insert(pol.GetIdPol(), pol);
+                    break;
+                }
+                case 2:
+                {
+                    arrayHashTable.Reset();
+                    cout << "\n" << endl;
+                    while (!bstable.IsTabEnden()) {
+                        cout << bstable.GetCurrent()->pData.GetIdPol() << endl;
+                        bstable.Next();
+                    }
+                    cout << "\n" << endl;
+                    cout << "Enter Polinom:\n" << endl;
+                    string polin;
+                    cin >> polin;
+                    TPolinom pol(polin);
+                    TabRecord<string, TPolinom>* s = bstable.Find(pol.GetIdPol());
+                    if (s == nullptr) {
+                        cout << "Not find" << endl;
+                        break;
+                    }
+                    
+                    PolinomOperation(s->pData, scanTable, sortedTable, arrayHashTable, bstable, 4);
+                    break;
+                }
+                case 3:
+                {
 
-				cout << "Enter Polinom:\n" << endl;
-				string polin;
-				cin >> polin;
-				TPolinom pol(polin);
-				listHashTable.Remove(pol.GetIdPol());
-				break;
-			}
-			case 4:
-			{
-				listHashTable.Reset();
-				cout << "\n" << endl;
-				while (!listHashTable.IsTabEnden()) {
-					cout << listHashTable.GetCurrent()->pData.GetIdPol() << endl;
-					listHashTable.Next();
-				}
-				cout << "\n" << endl;
-				break;
-			}
-			
-			default:
-				break;
+                    cout << "Enter Polinom:\n" << endl;
+                    string polin;
+                    cin >> polin;
+                    TPolinom pol(polin);
+                    bstable.Remove(pol.GetIdPol());
+                    break;
+                }
+                case 4:
+                {
+                    arrayHashTable.Reset();
+                    cout << "\n" << endl;
+                    while (!bstable.IsTabEnden()) {
+                        cout << bstable.GetCurrent()->pData.GetIdPol() << endl;
+                        bstable.Next();
+                    }
+                    cout << "\n" << endl;
+                    break;
+                }
+                default:
+                    break;
 
-			}
-			break;
+                }
+                break;
+            
 		case 5:
 			flag = 'y';
 			break;
